@@ -31,7 +31,7 @@ const getApiInfo = async () => {
     return {
       id: dog.id,
       name: dog.name,
-      temperament: dog.temperament,
+      temperament: dog.temperament?.split(", "),
       image: dog.image.url,
       weight: dog.weight.metric,
     };
@@ -41,17 +41,16 @@ const getApiInfo = async () => {
 
 const getTemperaments = async () => {
   const allDogs = await getApiInfo();
-  const tempsArray = allDogs.map((dog) => dog.temperament?.split(", "));
+  const tempsArray = allDogs.map((dog) => dog.temperament);
 
   const tempsFiltered = [...new Set(tempsArray.flat())];
-  console.log(tempsFiltered)
+  console.log(tempsFiltered);
 
   tempsFiltered.forEach((temp) => {
     Temperament.findOrCreate({
       where: { name: temp },
     });
   });
-
 
   const allTemps = await Temperament.findAll();
   return allTemps;
@@ -130,6 +129,46 @@ router.get("/temperament", async (req, res) => {
   // res.status(200).send(temperaments);
   const temps = await getTemperaments();
   res.send(temps);
+});
+
+/**
+ID *
+Nombre *
+Altura *
+Peso *
+Años de vida 
+{
+
+  "name": "Dieguito",
+  "weight": "70Kg",
+  "height": "182m",
+  "life_span": "12 - 85 years",
+  "temperament": ["Stubborn", "Curious"]
+}
+
+*/
+
+router.post("/dog", async (req, res) => {
+  const { name, weight, height, life_span, temperament } = req.body;
+
+  try {
+    const newDog = await Dog.create({
+      name,
+      weight,
+      height,
+      life_span,
+    });
+
+    const tempDb = await Temperament.findAll({
+      where: { name: temperament },
+    });
+
+    newDog.addTemperament(tempDb);
+
+    res.send("Dog created! :)");
+  } catch (e) {
+    res.send("Something is wrong :S");
+  }
 });
 
 module.exports = router;
