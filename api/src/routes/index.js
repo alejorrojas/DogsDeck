@@ -41,8 +41,9 @@ const getApiInfo = async () => {
 
 const getTemperaments = async () => {
   const allDogs = await getApiInfo();
-  const tempsArray = allDogs.map((dog) => dog.temperament);
-  const tempsFiltered = [...new Set(tempsArray)];
+  const tempsArray = allDogs.map((dog) => dog.temperament?.split(", "));
+
+  const tempsFiltered = [...new Set(tempsArray.flat())];
   console.log(tempsFiltered)
 
   tempsFiltered.forEach((temp) => {
@@ -50,6 +51,7 @@ const getTemperaments = async () => {
       where: { name: temp },
     });
   });
+
 
   const allTemps = await Temperament.findAll();
   return allTemps;
@@ -122,10 +124,12 @@ router.get("/dogs/:id", async (req, res) => {
     : res.status(400).send("Sorry, we couldn't find your dog :(");
 });
 
-router.get('/temperament', async(req, res)=>{
-  const temperaments = await getTemperaments()
-
-  res.status(200).send(temperaments)
-})
+router.get("/temperament", async (req, res) => {
+  // await getTemperaments();
+  // const temperaments = await Temperament.findAll();
+  // res.status(200).send(temperaments);
+  const temps = await getTemperaments();
+  res.send(temps);
+});
 
 module.exports = router;
