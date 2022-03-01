@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { findDogs } from "../redux/actions";
+import { findDogs, setLoading } from "../redux/actions";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -11,6 +11,7 @@ function SearchBar() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setLoading());
     dispatch(findDogs(input));
     setInput("");
   };
