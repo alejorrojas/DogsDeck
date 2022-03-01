@@ -44,7 +44,6 @@ const getTemperaments = async () => {
   const tempsArray = allDogs.map((dog) => dog.temperament);
 
   const tempsFiltered = [...new Set(tempsArray.flat())];
-  console.log(tempsFiltered);
 
   tempsFiltered.forEach((temp) => {
     Temperament.findOrCreate({
@@ -103,7 +102,7 @@ router.get("/dogs", async (req, res) => {
     const dogFind = await allDogs.filter((dog) =>
       dog.name.toLowerCase().includes(name.toLowerCase())
     );
-    console.log(dogFind);
+
     dogFind.length
       ? res.status(200).send(dogFind)
       : res.status(400).send("Sorry, we couldn't find your dog :(");
@@ -117,7 +116,7 @@ router.get("/dogs/:id", async (req, res) => {
 
   const allDogs = await getAllDogs();
   const dogFind = id && allDogs.find((dog) => String(dog.id) === id);
-
+  console.log(dogFind);
   dogFind
     ? res.status(200).json(dogFind)
     : res.status(400).send("Sorry, we couldn't find your dog :(");
@@ -149,12 +148,13 @@ Años de vida
 */
 
 router.post("/dog", async (req, res) => {
-  const { name, weight, height, life_span, temperament } = req.body;
+  const { name, weight, height, life_span, temperament, image } = req.body;
 
   try {
     const newDog = await Dog.create({
       name,
       weight,
+      image,
       height,
       life_span,
     });

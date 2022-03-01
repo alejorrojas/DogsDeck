@@ -60,6 +60,7 @@ function CharacterCreate() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postDog(input));
+    console.log(input);
     alert("Personaje creado padre");
     setInput({
       name: "",
@@ -139,7 +140,7 @@ function CharacterCreate() {
         </select>
         <hr />
 
-        {errors.length ? (
+        {!input.name ? (
           <button type="submit" disabled={true}>
             Create your dog
           </button>
