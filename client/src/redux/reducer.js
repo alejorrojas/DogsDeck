@@ -1,5 +1,5 @@
 import React from 'react'
-import { GET_DOGS } from './actions'
+import { FIND_DOGS, GET_DOGS } from './actions'
 
 const initialState = {
     copyDogs: [],
@@ -16,6 +16,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         allDogs: action.payload,
         copyDogs: action.payload,
+        loading: false
+    }
+    case FIND_DOGS: 
+    return{
+        ...state,
+        allDogs: action.payload,
         loading: false
     }
     

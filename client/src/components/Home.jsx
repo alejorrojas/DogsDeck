@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getDogs } from "../redux/actions";
 import Card from "./Card";
+import SearchBar from "./SearchBar";
 
 const Home = () => {
   const { allDogs, loading } = useSelector((state) => state);
@@ -14,12 +15,13 @@ const Home = () => {
 
   return (
     <>
-      <h1>HOME PEREREQUE</h1>;
+      <h1>HOME PEREREQUE</h1>
+      <SearchBar/>
       {allDogs &&
         allDogs.map((dog) => {
           return (
             <div key={dog.id}>
-              <Card props={dog} />
+              <Card data={dog} />
             </div>
           );
         })}

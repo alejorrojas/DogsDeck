@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Card({ props }) {
-  const { name, weight, temperament, image, id } = props;
-  console.log(props);
+function Card({ data }) {
+  const { name, weight, temperament, image, id } = data;
+
   return (
     <div>
       <Link to={`/dog/${id}`}>
@@ -22,7 +22,10 @@ function Card({ props }) {
       <h3>Weight</h3>
       <span>{weight} Kg </span>
       <h3>Temperaments</h3>
-      <span>{temperament} </span>
+      {temperament?.map((temp) => {
+        return <span>{temp}, </span>;
+      })}
+      
     </div>
   );
 }
