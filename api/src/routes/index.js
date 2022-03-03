@@ -1,95 +1,22 @@
 const { Router } = require("express");
 const axios = require("axios");
 const { Dog, Temperament } = require("../db");
+const {
+  getTemperaments,
+  getAllDogs,
+  getDbInfo,
+  getApiInfo,
+
+} = require("./functions");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 const router = Router();
 
 // Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
+// Ejemplo: router.use('/dog', dogs);
 
 //--------------funciones------------------------
-
-const getApiInfo = async () => {
-  //Intento de promesa fallida
-  //   const apiInfo = [];
-
-  //   axios.get("https://api.thedogapi.com/v1/breeds").then((res) =>
-  //     res.data.map((dog) => {
-  //       apiInfo.push({
-  //         image: dog.image,
-  //         name: dog.name,
-  //         temperament: dog.temperament,
-  //         weight: dog.weight.metric,
-  //       });
-  //     })
-  //   );
-  //   return apiInfo;
-  const apiUrl = await axios.get("https://api.thedogapi.com/v1/breeds");
-  const apiInfo = await apiUrl.data.map((dog) => {
-    return {
-      id: dog.id,
-      name: dog.name,
-      temperament: dog.temperament?.split(", "),
-      image: dog.image.url,
-      weight: dog.weight.metric,
-    };
-  });
-  return apiInfo;
-};
-
-const getTemperaments = async () => {
-  const allDogs = await getApiInfo();
-  const tempsArray = allDogs.map((dog) => dog.temperament);
-
-  const tempsFiltered = [...new Set(tempsArray.flat())];
-
-  tempsFiltered.forEach((temp) => {
-    Temperament.findOrCreate({
-      where: { name: temp },
-    });
-  });
-
-  const allTemps = await Temperament.findAll();
-  return allTemps;
-};
-
-//Intento de promesa fallido
-// const getDbInfo = () => {
-//   const dbInfo = [];
-
-//   Dog.findAll({
-//     include: {
-//       model: Temperament,
-//       attributes: ["name"],
-//       through: {
-//         attributes: [],
-//       },
-//     },
-//   }).then((res) => (dbInfo = res));
-//   return dbInfo;
-// };
-const getDbInfo = async () => {
-  return await Dog.findAll({
-    include: {
-      model: Temperament,
-      attributes: ["name"],
-      through: {
-        attributes: [],
-      },
-    },
-  });
-};
-
-const getAllDogs = async () => {
-  //no sirve hacer await aca (agregar async, descomentar y ver)
-  //  const apiInfo = await getApiInfo()
-  const apiInfo = await getApiInfo();
-  const dbInfo = await getDbInfo();
-
-  return apiInfo.concat(dbInfo);
-};
 
 //-----------------------------------------------
 
@@ -99,7 +26,7 @@ router.get("/dogs", async (req, res) => {
   const allDogs = await getAllDogs();
 
   if (name) {
-    const dogFind = await allDogs.filter((dog) =>
+    const dogFind = allDogs.filter((dog) =>
       dog.name.toLowerCase().includes(name.toLowerCase())
     );
 
@@ -130,23 +57,6 @@ router.get("/temperament", async (req, res) => {
   res.send(temps);
 });
 
-/**
-ID *
-Nombre *
-Altura *
-Peso *
-Años de vida 
-{
-
-  "name": "Dieguito",
-  "weight": "70Kg",
-  "height": "182m",
-  "life_span": "12 - 85 years",
-  "temperament": ["Stubborn", "Curious"]
-}
-
-*/
-
 router.post("/dog", async (req, res) => {
   const { name, weight, height, life_span, temperament, image } = req.body;
 
@@ -167,7 +77,27 @@ router.post("/dog", async (req, res) => {
 
     res.send("Dog created! :)");
   } catch (e) {
-    res.send("Something is wrong :S");
+    res.send("Something is wrong :S", e);
+  }
+});
+
+/* ENDPOINTS FILTRADOS */
+router.get("/created", async (req, res) => {
+  try {
+    const dbInfo = await getDbInfo();
+    console.log(dbInfo);
+    res.status(200).send(dbInfo);
+  } catch (e) {
+    res.send("Something is wrong :S", e);
+  }
+});
+router.get("/api", async (req, res) => {
+  try {
+    const apiInfo = await getApiInfo();
+
+    res.status(200).send(apiInfo);
+  } catch (e) {
+    res.send("Something is wrong :S", e);
   }
 });
 

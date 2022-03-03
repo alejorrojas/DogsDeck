@@ -5,17 +5,42 @@ import {
   SET_LOADING,
   GET_TEMP,
   POST_DOG,
+  FILTER_DB,
+  FILTER_API,
+  FILTER_TEMP,
 } from "./actions";
 
 const initialState = {
   copyDogs: [],
   allDogs: [],
   temps: [],
+  detail: [],
   loading: true,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FILTER_TEMP:
+      const temp = action.payload;
+      const filterDogs = state.copyDogs.filter((dog) => {
+        const find = dog.temperament?.filter((t) => t === action.payload);
+        return find;
+      });
+      console.log("filter", filterDogs);
+      return {
+        ...state,
+        // allDogs: filterDogs,
+      };
+    case FILTER_API:
+      return {
+        ...state,
+        allDogs: action.payload,
+      };
+    case FILTER_DB:
+      return {
+        ...state,
+        allDogs: action.payload,
+      };
     case POST_DOG:
       return { ...state };
     case GET_TEMP:
@@ -32,7 +57,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_ID_DOG:
       return {
         ...state,
-        allDogs: action.payload,
+        detail: action.payload,
         loading: false,
       };
     case GET_DOGS:

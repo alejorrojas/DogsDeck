@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Card({ data }) {
-  const { name, weight, temperament, image, id, createdInDb } = data;
+  const { name, weight, temperament, image, id } = data;
 
   return (
     <div>
@@ -21,13 +21,9 @@ function Card({ data }) {
       <h3>Weight</h3>
       <span>{weight} Kg </span>
       <h3>Temperaments</h3>
-      {createdInDb
-        ? data.Temperaments?.map((temp) => {
-            return <span key={temp.name}>{temp.name}, </span>;
-          })
-        : temperament?.map((temp) => {
-            return <span key={temp}>{temp}, </span>;
-          })}
+      {temperament?.map((temp) => {
+        return <span key={temp}>{temp}, </span>;
+      })}
     </div>
   );
 }

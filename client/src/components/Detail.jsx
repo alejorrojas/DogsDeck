@@ -7,15 +7,13 @@ import load from "../assets/loading.gif";
 function Detail() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { allDogs, loading } = useSelector((state) => state);
-  const { name, image, weight, height, temperament, life_span, createdInDb } =
-    allDogs;
+  const { detail, loading } = useSelector((state) => state);
+  const { name, image, weight, height, temperament, life_span } = detail;
 
   useEffect(() => {
     dispatch(setLoading());
     dispatch(findId(id));
-  }, [dispatch, id]);
-  console.log("Dog del id", allDogs);
+  }, [dispatch]);
 
   return (
     <div>
@@ -40,13 +38,9 @@ function Detail() {
           <h3>Life Span</h3>
           <span>{life_span} years</span>
           <h3>Temperaments</h3>
-          {createdInDb
-            ? allDogs.Temperaments?.map((temp) => {
-                return <span key={temp.name}>{temp.name}, </span>;
-              })
-            : temperament?.map((temp) => {
-                return <span key={temp}>{temp}, </span>;
-              })}
+          {temperament?.map((temp) => {
+            return <span key={temp}>{temp}, </span>;
+          })}
           <hr />
           <Link to="/home">
             <button>Home</button>
