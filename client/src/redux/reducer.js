@@ -8,6 +8,8 @@ import {
   FILTER_DB,
   FILTER_API,
   FILTER_TEMP,
+  ORDER_NAME,
+  ORDER_WEIGHT,
 } from "./actions";
 
 const initialState = {
@@ -20,16 +22,49 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FILTER_TEMP:
-      const temp = action.payload;
-      const filterDogs = state.copyDogs.filter((dog) => {
-        const find = dog.temperament?.filter((t) => t === action.payload);
-        return find;
+    case ORDER_NAME:
+      const orderName = state.copyDogs.sort((a, b) => {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        else return 0;
       });
-      console.log("filter", filterDogs);
+      if (action.payload === "A-Z") {
+        return {
+          ...state,
+          allDogs: orderName,
+        };
+      } else {
+        return {
+          ...state,
+          allDogs: orderName.reverse(),
+        };
+      }
+    case ORDER_WEIGHT:
+      const orderWeight = state.copyDogs.sort((a, b) => {
+        const weightA = a.weight.split(" ");
+        const weightB = b.weight.split(" ");
+
+        return Number(weightA.at(0)) - Number(weightB.at(0));
+      });
+      if (action.payload === "lessheight") {
+        return {
+          ...state,
+          allDogs: orderWeight,
+        };
+      } else {
+        return {
+          ...state,
+          allDogs: orderWeight.reverse(),
+        };
+      }
+    case FILTER_TEMP:
+      const filterDogs = state.copyDogs.filter((dog) =>
+        dog.temperament?.includes(action.payload)
+      );
+
       return {
         ...state,
-        // allDogs: filterDogs,
+        allDogs: filterDogs,
       };
     case FILTER_API:
       return {

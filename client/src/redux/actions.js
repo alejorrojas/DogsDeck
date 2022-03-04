@@ -9,6 +9,8 @@ export const POST_DOG = "POST_DOG";
 export const FILTER_DB = "FILTER_DB";
 export const FILTER_API = "FILTER_API";
 export const FILTER_TEMP = "FILTER_TEMP";
+export const ORDER_NAME = "ORDER_NAME";
+export const ORDER_WEIGHT = "ORDER_WEIGHT";
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -77,8 +79,16 @@ export const setLoading = () => {
   return { type: SET_LOADING };
 };
 
+/*FILTROS Y ORDENAMIENTOS */
+
 export const filterTemp = (temps) => {
-  return { type: FILTER_TEMP, payload: temps};
+  return { type: FILTER_TEMP, payload: temps };
+};
+export const orderName = (order) => {
+  return { type: ORDER_NAME, payload: order };
+};
+export const orderWeight = (order) => {
+  return { type: ORDER_WEIGHT, payload: order };
 };
 
 /* ENDPOINTS FILTRADOS */

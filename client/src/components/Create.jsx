@@ -4,10 +4,18 @@ import { Link, useHistory } from "react-router-dom";
 import { getTemps, postDog } from "../redux/actions";
 
 const validate = (input) => {
-  let errors = [];
-
-  !input.name && errors.push({ name: "Se necesita un nombre" });
-
+  let errors = {};
+  if (
+    input.name === undefined &&
+    input.weight_min === undefined &&
+    input.weight_max === undefined &&
+    input.height_min === undefined &&
+    input.height_max === undefined &&
+    input.life_span === undefined
+  ) {
+    errors.allFields =
+      "All the fields are required. Only the image is not neccesary";
+  } else errors = {};
   return errors;
 };
 
@@ -15,15 +23,31 @@ function CharacterCreate() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { temps } = useSelector((state) => state);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({
+    allFields: "All fields are required",
+  });
   const [input, setInput] = useState({
     name: "",
-    weight: "",
-    height: "",
+    weight_min: "",
+    weight_max: "",
+    height_min: "",
+    height_max: "",
     image: "",
     life_span: "",
     temperament: [],
   });
+  const newDog = {
+    name: input.name,
+    height: `${input.height_min} - ${input.height_max}`,
+    weight: `${input.weight_min} - ${input.weight_max}`,
+    life_span: input.life_span,
+    image: input.image,
+    temperament: input.temperament,
+  };
+
+  useEffect(() => {
+    dispatch(getTemps());
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setInput({
@@ -46,20 +70,17 @@ function CharacterCreate() {
   };
 
   const handleSelect = (e) => {
-    setInput({
-      ...input,
-      temperament: [...input.temperament, e.target.value],
-    });
-    console.log(input.temperament);
+    if (input.temperament.length < 5) {
+      setInput({
+        ...input,
+        temperament: [...input.temperament, e.target.value],
+      });
+    } else alert("You've reached the max amount of temperaments");
   };
-
-  useEffect(() => {
-    dispatch(getTemps());
-  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postDog(input));
+    dispatch(postDog(newDog));
     console.log(input);
     alert("Personaje creado padre");
     setInput({
@@ -89,26 +110,42 @@ function CharacterCreate() {
           />
           {errors.name && <span>{errors.name} </span>}
         </div>
-
         <div>
-          <label>Height</label>
+          <label> Height </label>
+          <label>Min </label>
           <input
-            type="text"
-            value={input.height}
-            name="height"
+            type="number"
+            value={input.height_min}
+            name="height_min"
+            onChange={handleChange}
+            min="0.5"
+          />
+          <label>Max </label>
+          <input
+            type="number"
+            value={input.height_max}
+            name="height_max"
             onChange={handleChange}
           />
-          {errors.height && <span>{errors.height} </span>}
         </div>
         <div>
-          <label>Weight</label>
+          <label> Weight </label>
+          <label>Min </label>
           <input
-            type="text"
-            value={input.weight}
-            name="weight"
+            type="number"
+            value={input.weight_min}
+            name="weight_min"
+            onChange={handleChange}
+            min="0"
+            step="1"
+          />
+          <label>Max </label>
+          <input
+            type="number"
+            value={input.weight_max}
+            name="weight_max"
             onChange={handleChange}
           />
-          {errors.weight && <span>{errors.weight} </span>}
         </div>
 
         <div>
@@ -124,7 +161,7 @@ function CharacterCreate() {
         <div>
           <label>Image</label>
           <input
-            type="text"
+            type="url"
             value={input.image}
             name="image"
             onChange={handleChange}
@@ -134,13 +171,23 @@ function CharacterCreate() {
 
         <label style={{ fontWeight: "bold" }}>Temperaments: </label>
         <select onChange={handleSelect}>
+          {!input.temperament.length ? (
+            <option>Select Temperament</option>
+          ) : (
+            <option disabled={true}>Select Temperament</option>
+          )}
+
           {temps.map((temp) => {
-            return <option value={temp.name}>{temp.name} </option>;
+            return (
+              <option key={temp.name} value={temp.name}>
+                {temp.name}{" "}
+              </option>
+            );
           })}
         </select>
         <hr />
 
-        {!input.name ? (
+        {errors.allFields ? (
           <button type="submit" disabled={true}>
             Create your dog
           </button>
@@ -150,7 +197,7 @@ function CharacterCreate() {
       </form>
 
       {input.temperament.map((temp) => (
-        <div>
+        <div key={`add${temp}`}>
           <p>{temp}</p>
           <button name={temp} onClick={handleDelete}>
             X

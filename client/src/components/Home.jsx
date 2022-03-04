@@ -7,6 +7,8 @@ import {
   filterTemp,
   getDogs,
   getTemps,
+  orderName,
+  orderWeight,
   setLoading,
 } from "../redux/actions";
 import Card from "./Card";
@@ -15,22 +17,29 @@ import load from "../assets/loading.gif";
 import Pagination from "./Pagination";
 
 function Home() {
-  const allDogs = useSelector((state) => state.allDogs);
-  const { loading, temps } = useSelector((state) => state);
+  const { allDogs, loading, temps } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [orden, setOrden] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardPerPage] = useState(8);
-  const indexLastCard = currentPage * cardsPerPage;
-  const indexFisrtCard = indexLastCard - cardsPerPage;
-  console.log(allDogs);
+  const [state, setState] = useState({
+    currentPage: 1,
+    cardsPerPage: 8,
+  });
+  console.log(state);
+  const indexLastCard = state.currentPage * state.cardsPerPage;
+  const indexFisrtCard = indexLastCard - state.cardsPerPage;
   const currentCards = allDogs?.slice(indexFisrtCard, indexLastCard);
 
   const paginado = (pagNumber) => {
-    setCurrentPage(pagNumber);
+    setState({ ...state, currentPage: pagNumber });
   };
   const handleChange = (e) => {
-    switch (e.target.value) {
+    const { value } = e.target;
+    switch (value) {
+      case "lessheight":
+        dispatch(orderWeight(value));
+        break;
+      case "moreweight":
+        dispatch(orderWeight(value));
+        break;
       case "created":
         dispatch(filterDb());
         break;
@@ -40,15 +49,22 @@ function Home() {
       case "default":
         dispatch(getDogs());
         break;
+      case "A-Z":
+        dispatch(orderName(value));
+        break;
+      case "Z-A":
+        dispatch(orderName(value));
+        break;
 
       default:
-        dispatch(filterTemp(e.target.value));
+        dispatch(filterTemp(value));
         break;
     }
   };
   const handleRefresh = () => {
     dispatch(setLoading());
     dispatch(getDogs());
+    setState({ ...state, currentPage: 1 });
   };
 
   useEffect(() => {
@@ -73,8 +89,8 @@ function Home() {
           <option value="default">Default</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
-          <option value="Moreweight">+ Weight</option>
-          <option value="Lessheight">- Wheight</option>
+          <option value="moreweight">+ Weight</option>
+          <option value="lessheight">- Wheight</option>
         </select>
       </div>
       <div>
@@ -113,7 +129,7 @@ function Home() {
       )}
       {loading || (
         <Pagination
-          cardsPerPage={cardsPerPage}
+          cardsPerPage={state.cardsPerPage}
           allDogs={allDogs.length}
           paginado={paginado}
         />

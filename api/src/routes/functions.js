@@ -100,8 +100,6 @@ const getTemperaments = async () => {
 // };
 
 const getAllDogs = async () => {
-  //no sirve hacer await aca (agregar async, descomentar y ver)
-  //  const apiInfo = await getApiInfo()
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
 
