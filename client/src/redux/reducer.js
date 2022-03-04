@@ -10,6 +10,7 @@ import {
   FILTER_TEMP,
   ORDER_NAME,
   ORDER_WEIGHT,
+  DELETE_DOG,
 } from "./actions";
 
 const initialState = {
@@ -22,6 +23,8 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case DELETE_DOG:
+      return { ...state };
     case ORDER_NAME:
       const orderName = state.copyDogs.sort((a, b) => {
         if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;

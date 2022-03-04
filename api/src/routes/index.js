@@ -6,7 +6,6 @@ const {
   getAllDogs,
   getDbInfo,
   getApiInfo,
-
 } = require("./functions");
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -76,6 +75,17 @@ router.post("/dog", async (req, res) => {
     newDog.addTemperament(tempDb);
 
     res.send("Dog created! :)");
+  } catch (e) {
+    res.send("Something is wrong :S", e);
+  }
+});
+
+router.delete("/deleted/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const findDog = await Dog.findByPk(id);
+    findDog.destroy();
+    res.send(200, "Dog deleted succesfully");
   } catch (e) {
     res.send("Something is wrong :S", e);
   }

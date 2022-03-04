@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { findId, setLoading } from "../redux/actions";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { deleteDog, findId, setLoading } from "../redux/actions";
 import load from "../assets/loading.gif";
 
 function Detail() {
   const { id } = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
   const { detail, loading } = useSelector((state) => state);
-  const { name, image, weight, height, temperament, life_span } = detail;
+  const { name, image, weight, height, temperament, life_span, createdInDb } =
+    detail;
+
+  const handleDelete = () => {
+    dispatch(deleteDog(id));
+    alert("Dog deleted succesfully");
+    history.push("/home");
+  };
 
   useEffect(() => {
     dispatch(setLoading());
@@ -21,6 +29,7 @@ function Detail() {
         <img src={load} alt="loading..." />
       ) : (
         <>
+          {createdInDb && <button onClick={handleDelete}>Delete</button>}
           <h2>{name} </h2>
           <img
             width="200px"

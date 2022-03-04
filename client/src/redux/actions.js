@@ -11,6 +11,9 @@ export const FILTER_API = "FILTER_API";
 export const FILTER_TEMP = "FILTER_TEMP";
 export const ORDER_NAME = "ORDER_NAME";
 export const ORDER_WEIGHT = "ORDER_WEIGHT";
+export const DELETE_DOG = "DELETE_DOG";
+export const ERROR = "ERROR";
+
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -77,6 +80,22 @@ export const getTemps = () => {
 
 export const setLoading = () => {
   return { type: SET_LOADING };
+};
+
+export const deleteDog = (id) => {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`http://localhost:3001/deleted/${id}`);
+      return dispatch({
+        type: DELETE_DOG,
+      });
+    } catch (e) {
+      alert("Sorry, something went wrong with the delete");
+      return dispatch({
+        type: ERROR,
+      });
+    }
+  };
 };
 
 /*FILTROS Y ORDENAMIENTOS */
