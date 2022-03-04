@@ -14,14 +14,20 @@ export const ORDER_WEIGHT = "ORDER_WEIGHT";
 export const DELETE_DOG = "DELETE_DOG";
 export const ERROR = "ERROR";
 
-
 export const getDogs = () => {
   return async function (dispatch) {
-    const res = await axios.get("http://localhost:3001/dogs");
-    return dispatch({
-      type: GET_DOGS,
-      payload: res.data,
-    });
+    try {
+      const res = await axios.get("http://localhost:3001/dogs");
+      return dispatch({
+        type: GET_DOGS,
+        payload: res.data,
+      });
+    } catch (e) {
+      alert("Sorry, something went wrong");
+      return dispatch({
+        type: ERROR,
+      });
+    }
   };
 };
 
@@ -35,6 +41,9 @@ export const findDogs = (name) => {
       });
     } catch (e) {
       alert("Sorry, we couldn't find your dog :(");
+      return dispatch({
+        type: ERROR,
+      });
     }
   };
 };
@@ -49,17 +58,23 @@ export const findId = (id) => {
       });
     } catch (e) {
       alert("Sorry, we couldn't find your dog :(");
+      return dispatch({
+        type: ERROR,
+      });
     }
   };
 };
 
 export const postDog = (data) => {
-  return async function () {
+  return async function (dispatch) {
     try {
       const res = await axios.post(`http://localhost:3001/dog`, data);
       return res;
     } catch (e) {
       alert("Sorry, we couldn't create your dog :p");
+      return dispatch({
+        type: ERROR,
+      });
     }
   };
 };
@@ -74,12 +89,18 @@ export const getTemps = () => {
       });
     } catch (e) {
       alert("Sorry, something went wrong");
+      return dispatch({
+        type: ERROR,
+      });
     }
   };
 };
 
 export const setLoading = () => {
   return { type: SET_LOADING };
+};
+export const setError = () => {
+  return { type: ERROR };
 };
 
 export const deleteDog = (id) => {
@@ -121,6 +142,9 @@ export const filterDb = () => {
       });
     } catch (e) {
       alert("Sorry, something went wrong");
+      return dispatch({
+        type: ERROR,
+      });
     }
   };
 };
@@ -134,6 +158,9 @@ export const filterApi = () => {
       });
     } catch (e) {
       alert("Sorry, something went wrong");
+      return dispatch({
+        type: ERROR,
+      });
     }
   };
 };

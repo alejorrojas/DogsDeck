@@ -15,15 +15,16 @@ import Card from "./Card";
 import SearchBar from "./SearchBar";
 import load from "../assets/loading.gif";
 import Pagination from "./Pagination";
+import Error from "./Error";
 
 function Home() {
-  const { allDogs, loading, temps } = useSelector((state) => state);
+  const { allDogs, loading, temps, error } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [state, setState] = useState({
     currentPage: 1,
     cardsPerPage: 8,
+    alreadyFiltered: false,
   });
-  console.log(state);
   const indexLastCard = state.currentPage * state.cardsPerPage;
   const indexFisrtCard = indexLastCard - state.cardsPerPage;
   const currentCards = allDogs?.slice(indexFisrtCard, indexLastCard);
@@ -31,6 +32,7 @@ function Home() {
   const paginado = (pagNumber) => {
     setState({ ...state, currentPage: pagNumber });
   };
+
   const handleChange = (e) => {
     const { value } = e.target;
     switch (value) {
@@ -60,80 +62,96 @@ function Home() {
         dispatch(filterTemp(value));
         break;
     }
+    setState({ ...state, alreadyFiltered: true, currentPage: 1 });
   };
   const handleRefresh = () => {
     dispatch(setLoading());
     dispatch(getDogs());
-    setState({ ...state, currentPage: 1 });
+    setState({ ...state, alreadyFiltered: false, currentPage: 1 });
   };
 
   useEffect(() => {
     dispatch(setLoading());
     dispatch(getDogs());
     dispatch(getTemps());
-  }, [dispatch]);
+    setState({ ...state, alreadyFiltered: false });
+  }, [dispatch, error]);
 
   return (
     <>
-      <h1>HOME PEREREQUE</h1>
-      <SearchBar />
-      <Link to="/dog">
-        <button>create</button>
-      </Link>
-      <br />
-      <button onClick={handleRefresh}>Refresh</button>
-      <br />
-      <div>
-        <label>Order by </label>
-        <select onChange={handleChange}>
-          <option value="default">Default</option>
-          <option value="A-Z">A-Z</option>
-          <option value="Z-A">Z-A</option>
-          <option value="moreweight">+ Weight</option>
-          <option value="lessheight">- Wheight</option>
-        </select>
-      </div>
-      <div>
-        <label>Filter by temperaments </label>
-        <select onChange={handleChange}>
-          <option value="default">Default</option>
-          {temps &&
-            temps.map((t) => {
-              return (
-                <option key={t.id} value={t.name}>
-                  {t.name}
-                </option>
-              );
-            })}
-        </select>
-      </div>
-      <div>
-        <label>Filter by origin </label>
-        <select onChange={handleChange}>
-          <option value="default">Default</option>
-          <option value="created">Created</option>
-          <option value="api">Existentes</option>
-        </select>
-      </div>
-      {loading ? (
-        <img src={load} alt="loading..." />
-      ) : (
-        allDogs.length &&
-        currentCards.map((dog) => {
-          return (
-            <div key={dog.id}>
-              <Card data={dog} />
-            </div>
-          );
-        })
-      )}
-      {loading || (
-        <Pagination
-          cardsPerPage={state.cardsPerPage}
-          allDogs={allDogs.length}
-          paginado={paginado}
-        />
-      )}
+      <>
+        <h1>HOME PEREREQUE</h1>
+        <SearchBar />
+        <Link to="/dog">
+          <button>create</button>
+        </Link>
+        <br />
+        <br />
+        <form onSubmit={(e) => e.reset()}>
+          <button onClick={handleRefresh}>Refresh</button>
+          <div>
+            <label>Order by </label>
+            <select
+              disabled={!state.alreadyFiltered ? false : true}
+              onChange={handleChange}
+            >
+              <option value="default">Default</option>
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+              <option value="moreweight">+ Weight</option>
+              <option value="lessheight">- Wheight</option>
+            </select>
+          </div>
+          <div>
+            <label>Filter by temperaments </label>
+            <select
+              disabled={!state.alreadyFiltered ? false : true}
+              onChange={handleChange}
+            >
+              <option value="default">Default</option>
+              {temps &&
+                temps.map((t) => {
+                  return (
+                    <option key={t.id} value={t.name}>
+                      {t.name}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          <div>
+            <label>Filter by origin </label>
+            <select
+              disabled={!state.alreadyFiltered ? false : true}
+              onChange={handleChange}
+            >
+              <option value="default">Default</option>
+              <option value="created">Created</option>
+              <option value="api">Existentes</option>
+            </select>
+          </div>
+        </form>
+        {loading ? (
+          <img src={load} alt="loading..." />
+        ) : (
+          allDogs.length &&
+          currentCards.map((dog) => {
+            return (
+              <div key={dog.id}>
+                <Card data={dog} />
+              </div>
+            );
+          })
+        )}
+        {loading || (
+          <Pagination
+            cardsPerPage={state.cardsPerPage}
+            allDogs={allDogs.length}
+            paginado={paginado}
+          />
+        )}
+      </>
+      )
     </>
   );
 }

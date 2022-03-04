@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { deleteDog, findId, setLoading } from "../redux/actions";
 import load from "../assets/loading.gif";
+import Error from "./Error";
 
 function Detail() {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { detail, loading } = useSelector((state) => state);
+  const { detail, loading, error } = useSelector((state) => state);
   const { name, image, weight, height, temperament, life_span, createdInDb } =
     detail;
 
@@ -25,7 +26,10 @@ function Detail() {
 
   return (
     <div>
-      {loading ? (
+      {console.log(error)}
+      {error ? (
+        <Error />
+      ) : loading ? (
         <img src={load} alt="loading..." />
       ) : (
         <>
@@ -68,7 +72,7 @@ function Detail() {
           alt="dog img"
           src={
             image
-              ? image
+            ? image
               : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIiPMg_MKr38MbImyVVm6y02fidXaaGiu6D1Pm4-sd_FFQHL_scIJLIcVgki8nf5OQrI&usqp=CAU"
           }
         />

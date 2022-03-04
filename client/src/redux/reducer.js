@@ -11,6 +11,8 @@ import {
   ORDER_NAME,
   ORDER_WEIGHT,
   DELETE_DOG,
+  SET_ERROR,
+  ERROR,
 } from "./actions";
 
 const initialState = {
@@ -19,10 +21,17 @@ const initialState = {
   temps: [],
   detail: [],
   loading: true,
+  error: false,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: !state.error,
+      };
     case DELETE_DOG:
       return { ...state };
     case ORDER_NAME:
