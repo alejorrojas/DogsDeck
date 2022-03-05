@@ -17,6 +17,6 @@ router.delete("/deleted/:id", controller.delete);
 /* ENDPOINTS FILTRADOS */
 router.get("/created", controller.filterCreated);
 
-router.get("/api", controller.api);
+router.get("/api", controller.filterApi);
 
 module.exports = router;

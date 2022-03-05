@@ -106,9 +106,67 @@ const getAllDogs = async () => {
   return [...dbInfo, ...apiInfo];
 };
 
+/* VALIDATION */
+const checkUndefined = (input) => {
+  if (!input.temperament.length) return true;
+  for (let el in input) {
+    if (input[el] === undefined) {
+      return true;
+    }
+    return false;
+  }
+};
+
+const checkNaN = (arr) => {
+  return arr.filter((el) => isNaN(parseInt(el))).length;
+};
+
+const checkMinMax = (min, max) => {
+  const nMax = parseInt(max);
+  const nMin = parseInt(min);
+  if (nMax < 1 || nMin < 1) return false;
+  if (nMin > nMax || nMin === nMax) return false;
+  return true;
+};
+
+const validate = (input) => {
+  const regexName = /^[a-zA-Z ]+$/;
+  const { life_span, height_max, height_min, weight_max, weight_min, name } =
+    input;
+  const errors = {};
+  //check undefined
+  if (checkUndefined(input)) {
+    errors.allFields = "All fields are required";
+  }
+  //check name
+  if (!regexName.test(name)) {
+    errors.name = "Invalid name format";
+  }
+  //check life-span
+  if (parseInt(life_span) < 1)
+    errors.life_span = "The life span could not be lower than 1";
+  //check min-max
+  if (!checkMinMax(weight_min, weight_max)) {
+    errors.weight = "The max must be greater than the min";
+  }
+  if (!checkMinMax(height_min, height_max)) {
+    errors.height = "The max must be greater than the min";
+  }
+  //check number type
+  else if (
+    checkNaN([height_max, height_min, weight_max, weight_min, life_span])
+  ) {
+    errors.nan =
+      "The weight, height and life span inputs are required and must be a number";
+  }
+
+  return errors;
+};
+
 module.exports = {
   getAllDogs,
   getTemperaments,
   getDbInfo,
   getApiInfo,
+  validate,
 };

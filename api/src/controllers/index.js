@@ -4,6 +4,7 @@ const {
   getAllDogs,
   getDbInfo,
   getApiInfo,
+  validate,
 } = require("../services");
 const controller = {};
 
@@ -42,26 +43,43 @@ controller.temperaments = async (req, res) => {
 };
 
 controller.dogPost = async (req, res) => {
-  const { name, weight, height, life_span, temperament, image } = req.body;
+  const {
+    name,
+    weight_min,
+    weight_max,
+    height_min,
+    height_max,
+    life_span,
+    temperament,
+    image,
+  } = req.body;
 
-  try {
-    const newDog = await Dog.create({
+  const errors = validate(req.body);
+  if (Object.keys(errors).length)
+    res.send("Check again your dog info before create");
+  else {
+    const dogFormat = {
       name,
-      weight,
-      image,
-      height,
+      height: `${height_min} - ${height_max}`,
+      weight: `${weight_min} - ${weight_max}`,
       life_span,
-    });
+      image,
+    };
 
-    const tempDb = await Temperament.findAll({
-      where: { name: temperament },
-    });
-
-    newDog.addTemperament(tempDb);
-
-    res.send("Dog created! :)");
-  } catch (e) {
-    res.send("Something is wrong :S", e);
+    try {
+      const tempDb = await Temperament.findAll({
+        where: { name: temperament },
+      });
+      if (!tempDb.length) {
+        return res.send(400, "Sorry, we could not find that temperament");
+      } else {
+        const newDog = await Dog.create(dogFormat);
+        newDog.addTemperament(tempDb);
+        res.send("Dog created! :)");
+      }
+    } catch (e) {
+      res.send("Something is wrong :S", e);
+    }
   }
 };
 
@@ -86,7 +104,7 @@ controller.filterCreated = async (req, res) => {
   }
 };
 
-controller.api = async (req, res) => {
+controller.filterApi = async (req, res) => {
   try {
     const apiInfo = await getApiInfo();
 
