@@ -1,21 +1,58 @@
-import { useEffect, useState } from "react";
+import { cloneElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getTemps, postDog } from "../redux/actions";
 
+const checkUndefined = (input) => {
+  if (!input.temperament.length) return true;
+  for (let el in input) {
+    if (input[el] === undefined) {
+      return true;
+    }
+    return false;
+  }
+};
+
+const checkNaN = (arr) => {
+  return arr.filter((el) => isNaN(parseInt(el))).length;
+};
+
+const checkMinMax = (min, max) => {
+  const nMax = parseInt(max);
+  const nMin = parseInt(min);
+  if (nMin > nMax || nMin === nMax) return false;
+  return true;
+};
+
 const validate = (input) => {
-  let errors = {};
-  if (
-    input.name === undefined &&
-    input.weight_min === undefined &&
-    input.weight_max === undefined &&
-    input.height_min === undefined &&
-    input.height_max === undefined &&
-    input.life_span === undefined
+  const regexName = /^[a-zA-Z ]+$/;
+  const { life_span, height_max, height_min, weight_max, weight_min, name } =
+    input;
+  const errors = {};
+  //check undefined
+  if (checkUndefined(input)) {
+    errors.allFields = "All fields are required";
+    return errors;
+  } else delete errors.allFields;
+  //check name
+  if (!regexName.test(name)) {
+    errors.name = "Invalid name format";
+  }
+  //check min-max
+  if (!checkMinMax(weight_min, weight_max)) {
+    errors.weight = "The max must be greater than the min";
+  }
+  if (!checkMinMax(height_min, height_max)) {
+    errors.height = "The max must be greater than the min";
+  }
+  //check number type
+  else if (
+    checkNaN([height_max, height_min, weight_max, weight_min, life_span])
   ) {
-    errors.allFields =
-      "All the fields are required. Only the image is not neccesary";
-  } else errors = {};
+    errors.nan =
+      "The weight, height and life span inputs are required and must be a number";
+  }
+
   return errors;
 };
 
@@ -70,11 +107,20 @@ function CharacterCreate() {
   };
 
   const handleSelect = (e) => {
+    const { value } = e.target;
+    if (input.temperament.includes(value))
+      return alert("You've already selected that temperament");
     if (input.temperament.length < 5) {
       setInput({
         ...input,
-        temperament: [...input.temperament, e.target.value],
+        temperament: [...input.temperament, value],
       });
+      setErrors(
+        validate({
+          ...input,
+          temperament: [...input.temperament, value],
+        })
+      );
     } else alert("You've reached the max amount of temperaments");
   };
 
@@ -118,7 +164,6 @@ function CharacterCreate() {
             value={input.height_min}
             name="height_min"
             onChange={handleChange}
-            min="0.5"
           />
           <label>Max </label>
           <input
@@ -128,6 +173,7 @@ function CharacterCreate() {
             onChange={handleChange}
           />
         </div>
+        {errors.height && <span>{errors.height} </span>}
         <div>
           <label> Weight </label>
           <label>Min </label>
@@ -136,8 +182,7 @@ function CharacterCreate() {
             value={input.weight_min}
             name="weight_min"
             onChange={handleChange}
-            min="0"
-            step="1"
+            min={input.height_min}
           />
           <label>Max </label>
           <input
@@ -147,17 +192,17 @@ function CharacterCreate() {
             onChange={handleChange}
           />
         </div>
-
+        {errors.weight && <span>{errors.weight} </span>}
         <div>
           <label>Life Span</label>
           <input
-            type="text"
+            type="number"
             value={input.life_span}
             name="life_span"
             onChange={handleChange}
           />
-          {errors.weight && <span>{errors.weight} </span>}
         </div>
+        {errors.nan && <span>{errors.nan} </span>}
         <div>
           <label>Image</label>
           <input
@@ -166,7 +211,6 @@ function CharacterCreate() {
             name="image"
             onChange={handleChange}
           />
-          {errors.image && <span>{errors.image} </span>}
         </div>
 
         <label style={{ fontWeight: "bold" }}>Temperaments: </label>
@@ -186,11 +230,13 @@ function CharacterCreate() {
           })}
         </select>
         <hr />
-
-        {errors.allFields ? (
-          <button type="submit" disabled={true}>
-            Create your dog
-          </button>
+        {console.log(errors)}
+        {Object.keys(errors).length ? (
+          <div>
+            <button type="submit" disabled={true}>
+              Create your dog
+            </button>
+          </div>
         ) : (
           <button type="submit">Create your dog</button>
         )}
