@@ -14,7 +14,7 @@ router.post("/dog", controller.dogPost);
 
 router.delete("/deleted/:id", controller.delete);
 
-/* ENDPOINTS FILTRADOS */
+/* ENDPOINTS FILTRADOS PROPIOS*/
 router.get("/created", controller.filterCreated);
 
 router.get("/api", controller.filterApi);

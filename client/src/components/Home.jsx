@@ -75,82 +75,86 @@ function Home() {
     dispatch(getDogs());
     dispatch(getTemps());
     setState({ ...state, alreadyFiltered: false });
-  }, [dispatch, error]);
+  }, [dispatch]);
 
   return (
     <>
-      <>
-        <h1>HOME PEREREQUE</h1>
-        <SearchBar />
-        <Link to="/dog">
-          <button>create</button>
-        </Link>
-        <br />
-        <br />
-        <form onSubmit={(e) => e.reset()}>
-          <button onClick={handleRefresh}>Refresh</button>
-          <div>
-            <label>Order by </label>
-            <select
-              disabled={!state.alreadyFiltered ? false : true}
-              onChange={handleChange}
-            >
-              <option value="default">Default</option>
-              <option value="A-Z">A-Z</option>
-              <option value="Z-A">Z-A</option>
-              <option value="moreweight">+ Weight</option>
-              <option value="lessheight">- Wheight</option>
-            </select>
-          </div>
-          <div>
-            <label>Filter by temperaments </label>
-            <select
-              disabled={!state.alreadyFiltered ? false : true}
-              onChange={handleChange}
-            >
-              <option value="default">Default</option>
-              {temps &&
-                temps.map((t) => {
-                  return (
-                    <option key={t.id} value={t.name}>
-                      {t.name}
-                    </option>
-                  );
-                })}
-            </select>
-          </div>
-          <div>
-            <label>Filter by origin </label>
-            <select
-              disabled={!state.alreadyFiltered ? false : true}
-              onChange={handleChange}
-            >
-              <option value="default">Default</option>
-              <option value="created">Created</option>
-              <option value="api">Existentes</option>
-            </select>
-          </div>
-        </form>
-        {loading ? (
-          <img src={load} alt="loading..." />
-        ) : (
-          allDogs.length &&
-          currentCards.map((dog) => {
-            return (
-              <div key={dog.id}>
-                <Card data={dog} />
-              </div>
-            );
-          })
-        )}
-        {loading || (
-          <Pagination
-            cardsPerPage={state.cardsPerPage}
-            allDogs={allDogs.length}
-            paginado={paginado}
-          />
-        )}
-      </>
+      <h1>HOME PEREREQUE</h1>
+      <SearchBar />
+      <Link to="/dog">
+        <button>create</button>
+      </Link>
+      <br />
+      <br />
+      <form onSubmit={(e) => e.reset()}>
+        <button onClick={handleRefresh}>Refresh</button>
+        <div>
+          <label>Order by </label>
+          <select
+            disabled={!state.alreadyFiltered ? false : true}
+            onChange={handleChange}
+          >
+            <option value="default">Default</option>
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+            <option value="moreweight">+ Weight</option>
+            <option value="lessheight">- Wheight</option>
+          </select>
+        </div>
+        <div>
+          <label>Filter by temperaments </label>
+          <select
+            disabled={!state.alreadyFiltered ? false : true}
+            onChange={handleChange}
+          >
+            <option value="default">Default</option>
+            {temps &&
+              temps.map((t) => {
+                return (
+                  <option key={t.id} value={t.name}>
+                    {t.name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div>
+          <label>Filter by origin </label>
+          <select
+            disabled={!state.alreadyFiltered ? false : true}
+            onChange={handleChange}
+          >
+            <option value="default">Default</option>
+            <option value="created">Created</option>
+            <option value="api">Web</option>
+          </select>
+        </div>
+      </form>
+      {error ? (
+        <Error />
+      ) : (
+        <>
+          {loading ? (
+            <img src={load} alt="loading..." />
+          ) : (
+            allDogs.length &&
+            currentCards.map((dog) => {
+              return (
+                <div key={dog.id}>
+                  <Card data={dog} />
+                </div>
+              );
+            })
+          )}
+          {loading || (
+            <Pagination
+              cardsPerPage={state.cardsPerPage}
+              allDogs={allDogs.length}
+              paginado={paginado}
+            />
+          )}
+        </>
+      )}
     </>
   );
 }

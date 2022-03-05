@@ -11,7 +11,6 @@ import {
   ORDER_NAME,
   ORDER_WEIGHT,
   DELETE_DOG,
-  SET_ERROR,
   ERROR,
 } from "./actions";
 
@@ -30,7 +29,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: !state.error,
+        error: true,
       };
     case DELETE_DOG:
       return { ...state };
@@ -106,6 +105,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detail: action.payload,
         loading: false,
+        error: false,
       };
     case GET_DOGS:
       return {

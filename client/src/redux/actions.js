@@ -23,7 +23,6 @@ export const getDogs = () => {
         payload: res.data,
       });
     } catch (e) {
-      alert("Sorry, something went wrong");
       return dispatch({
         type: ERROR,
       });
@@ -40,7 +39,6 @@ export const findDogs = (name) => {
         payload: res.data,
       });
     } catch (e) {
-      alert("Sorry, we couldn't find your dog :(");
       return dispatch({
         type: ERROR,
       });
@@ -57,7 +55,6 @@ export const findId = (id) => {
         payload: res.data,
       });
     } catch (e) {
-      alert("Sorry, we couldn't find your dog :(");
       return dispatch({
         type: ERROR,
       });
@@ -71,7 +68,6 @@ export const postDog = (data) => {
       const res = await axios.post(`http://localhost:3001/dog`, data);
       return res;
     } catch (e) {
-      alert("Sorry, we couldn't create your dog :p");
       return dispatch({
         type: ERROR,
       });
@@ -88,7 +84,6 @@ export const getTemps = () => {
         payload: res.data,
       });
     } catch (e) {
-      alert("Sorry, something went wrong");
       return dispatch({
         type: ERROR,
       });
@@ -111,7 +106,6 @@ export const deleteDog = (id) => {
         type: DELETE_DOG,
       });
     } catch (e) {
-      alert("Sorry, something went wrong with the delete");
       return dispatch({
         type: ERROR,
       });
@@ -141,7 +135,6 @@ export const filterDb = () => {
         payload: res.data,
       });
     } catch (e) {
-      alert("Sorry, something went wrong");
       return dispatch({
         type: ERROR,
       });
@@ -157,7 +150,6 @@ export const filterApi = () => {
         payload: res.data,
       });
     } catch (e) {
-      alert("Sorry, something went wrong");
       return dispatch({
         type: ERROR,
       });

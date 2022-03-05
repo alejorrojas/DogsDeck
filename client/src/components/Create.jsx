@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getTemps, postDog } from "../redux/actions";
@@ -24,19 +24,27 @@ const checkMinMax = (min, max) => {
   return true;
 };
 
+const checkNegatives = (arr) => {
+  return arr.filter((el) => parseInt(el) < 1).length;
+};
+
 const validate = (input) => {
   const regexName = /^[a-zA-Z ]+$/;
   const { life_span, height_max, height_min, weight_max, weight_min, name } =
     input;
+  const numbers = [height_max, height_min, weight_max, weight_min, life_span];
   const errors = {};
   //check undefined
   if (checkUndefined(input)) {
     errors.allFields = "All fields are required";
-    return errors;
-  } else delete errors.allFields;
+  }
   //check name
   if (!regexName.test(name)) {
     errors.name = "Invalid name format";
+  }
+  //check negatives
+  if (checkNegatives(numbers)) {
+    errors.negatives = "Negative numbers are not valid";
   }
   //check min-max
   if (!checkMinMax(weight_min, weight_max)) {
@@ -46,11 +54,8 @@ const validate = (input) => {
     errors.height = "The max must be greater than the min";
   }
   //check number type
-  else if (
-    checkNaN([height_max, height_min, weight_max, weight_min, life_span])
-  ) {
-    errors.nan =
-      "The weight, height and life span inputs are required and must be a number";
+  else if (checkNaN(numbers)) {
+    errors.nan = "The weight, height and life span inputs must be a number";
   }
 
   return errors;
@@ -60,10 +65,7 @@ function CharacterCreate() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { temps } = useSelector((state) => state);
-  const [errors, setErrors] = useState({
-    allFields: "All fields are required",
-  });
-  const [input, setInput] = useState({
+  const initialState = {
     name: "",
     weight_min: "",
     weight_max: "",
@@ -72,15 +74,11 @@ function CharacterCreate() {
     image: "",
     life_span: "",
     temperament: [],
-  });
-  const newDog = {
-    name: input.name,
-    height: `${input.height_min} - ${input.height_max}`,
-    weight: `${input.weight_min} - ${input.weight_max}`,
-    life_span: input.life_span,
-    image: input.image,
-    temperament: input.temperament,
   };
+  const [errors, setErrors] = useState({
+    allFields: "All fields are required",
+  });
+  const [input, setInput] = useState(initialState);
 
   useEffect(() => {
     dispatch(getTemps());
@@ -126,16 +124,10 @@ function CharacterCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postDog(newDog));
+    dispatch(postDog(input));
     console.log(input);
     alert("Personaje creado padre");
-    setInput({
-      name: "",
-      weight: "",
-      height: "",
-      life_span: "",
-      temperament: [],
-    });
+    setInput(initialState);
     history.push("/home");
   };
 
@@ -202,6 +194,7 @@ function CharacterCreate() {
             onChange={handleChange}
           />
         </div>
+        {errors.negatives && <span>{errors.negatives}</span>}
         {errors.nan && <span>{errors.nan} </span>}
         <div>
           <label>Image</label>

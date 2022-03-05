@@ -22,11 +22,10 @@ function Detail() {
   useEffect(() => {
     dispatch(setLoading());
     dispatch(findId(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <div>
-      {console.log(error)}
       {error ? (
         <Error />
       ) : loading ? (
