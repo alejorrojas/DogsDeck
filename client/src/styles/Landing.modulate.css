@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+
+.home-btn {
+  margin: 20px;
+  font-size: 16px;
+  width: 200px;
+  padding: 15px 30px;
+  background-color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+  color: #ffff;
+  font-family: "DM Serif Display", serif;
+}
+/*HOVER NOT WORKING*/
+.home-btn::hover {
+  padding: 25px 35px;
+}
+
+.landing-container {
+  height: 100vh;
+  width: 100vw;
+  object-fit: contain;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-container > h1 {
+  font-size: 100px;
+  color: #ffff;
+  font-family: "DM Serif Display", serif;
+}
+
+.landing-container > h3 {
+  font-size: 32px;
+  color: #ffff;
+  font-family: "DM Serif Display", serif;
+}
+.video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
