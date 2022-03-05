@@ -7,7 +7,7 @@ function Card({ data }) {
   return (
     <div>
       <Link to={`/dogs/${id}`}>
-        <h2 style={{ textDecoration: "none" }}>{name} </h2>
+        <h2 >{name} </h2>
         <img
           width="200px"
           height="250px"

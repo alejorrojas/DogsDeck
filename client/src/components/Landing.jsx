@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import landingVideo from "../assets/landingVideo.mp4";
-import "../styles/Landing.modulate.css";
+import styles from "../styles/Landing.module.css";
 
 const Landing = () => {
   return (
-    <div className="landing-container">
+    <div className={styles.landingContainer}>
       <video
-        className="video"
+        className={styles.video}
         src={landingVideo}
         controls=""
         muted
@@ -18,9 +18,8 @@ const Landing = () => {
       <h1>Find your perfect dog</h1>
       <h3>Start checking and pick your favourites</h3>
       <Link to="/home">
-        <button className="home-btn" >HOME</button>
+        <button className={styles.homeBtn }>HOME</button>
       </Link>
-      
     </div>
   );
 };
