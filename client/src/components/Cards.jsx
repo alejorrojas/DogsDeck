@@ -1,11 +1,12 @@
 import React from "react";
 import Card from "./Card";
+import styles from '../styles/Cards.module.css'
 
 function Cards({ dogs }) {
   return (
-    <div>
+    <div className={styles.cardsContainer} >
       {dogs.map((dog) => {
-        return <Card data={dog} key={dog.id} />;
+        return <Card data={dog} key={dog.id} className={styles.card} />;
       })}
     </div>
   );

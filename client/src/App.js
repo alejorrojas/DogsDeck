@@ -1,4 +1,4 @@
-import "./styles/App.module.css";
+import "./styles/App.css";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Landing from "./components/Landing";
 import Home from "./components/Home";
