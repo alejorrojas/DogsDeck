@@ -12,6 +12,8 @@ import {
   ORDER_WEIGHT,
   DELETE_DOG,
   ERROR,
+  ADD_FAV,
+  DELETE_FAV,
 } from "./actions";
 
 const initialState = {
@@ -19,12 +21,25 @@ const initialState = {
   allDogs: [],
   temps: [],
   detail: [],
+  favs: [],
   loading: true,
   error: false,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_FAV:
+      const included = state.favs.filter((dog) => dog.id === action.payload.id);
+      if (included.length) return alert("Sorry, that dog is already added!");
+      return {
+        ...state,
+        favs: [...state.favs, action.payload],
+      };
+    case DELETE_FAV:
+      return {
+        ...state,
+        favs: state.favs.filter((dog) => dog.id !== action.payload.id),
+      };
     case ERROR:
       return {
         ...state,

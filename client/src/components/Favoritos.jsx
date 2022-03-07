@@ -1,10 +1,14 @@
 import React from "react";
-import Nav from "./Nav";
+import { useSelector } from "react-redux";
+import Card from "./Card";
+import Cards from "./Cards";
 
 function Favoritos() {
+  const { favs } = useSelector((state) => state);
+
   return (
     <>
-      <h1>Favoritos</h1>
+      <Cards dogs={favs} />
     </>
   );
 }

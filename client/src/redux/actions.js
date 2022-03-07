@@ -13,6 +13,8 @@ export const ORDER_NAME = "ORDER_NAME";
 export const ORDER_WEIGHT = "ORDER_WEIGHT";
 export const DELETE_DOG = "DELETE_DOG";
 export const ERROR = "ERROR";
+export const ADD_FAV = "ADD_FAV";
+export const DELETE_FAV = "DELETE_FAV";
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -89,6 +91,13 @@ export const getTemps = () => {
       });
     }
   };
+};
+
+export const addFav = (payload) => {
+  return { type: ADD_FAV, payload };
+};
+export const deleteFav = (payload) => {
+  return { type: DELETE_FAV, payload };
 };
 
 export const setLoading = () => {

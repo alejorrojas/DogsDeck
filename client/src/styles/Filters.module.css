@@ -3,13 +3,15 @@
   align-items: center;
   text-align: center;
   justify-content: space-around;
-    outline: none;
+  outline: none;
   padding: 1rem;
   border-radius: 0.5em;
   box-shadow: 4px 4px 12px #c5c5c56b, -6px -6px 12px #ffffff8a;
   transition: all 0.5s ease;
   cursor: pointer;
   margin: 0;
+  font-family: "DM Serif Display", serif;
+  font-weight: lighter;
 }
 
 .filterBox:hover {
@@ -49,7 +51,7 @@ select {
   font-size: inherit;
   cursor: inherit;
   line-height: inherit;
-  background-color:rgba(155, 155, 155, 0.13) ;
+  background-color: rgba(155, 155, 155, 0.13);
   border-radius: 0.2rem;
   margin: 0 0.5rem;
 }

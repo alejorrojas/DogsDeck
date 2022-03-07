@@ -1,10 +1,15 @@
-* {
-  font-weight: lighter;
-}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
 img {
-  width: 300px;
+  width: 350px;
   height: 200px;
+  margin-bottom: 0.5rem;
+}
+
+
+.title{
+  font-family: "DM Serif Display", serif;
+  font-weight: lighter;
 }
 
 .link {
@@ -12,24 +17,40 @@ img {
   color: #000;
 }
 
+.weight {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
 .card {
+  max-width: 400px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 2rem 0.5rem;
-  border-radius: 0.8rem;
-  border: 0.1px solid rgba(0, 0, 0, 0.048);
+  border-radius: 0.3rem;
   padding: 1rem;
   box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.158);
   transition: all ease 0.5s;
   cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif
+}
+li{
+  margin: 5px;
 }
 
 .card:hover {
-  padding: 0.8rem;
+  transform: translate(0px, -5px);
   box-shadow: 0px 25px 25px 0px rgba(0, 0, 0, 0.459);
 }
 
 .tempsBox {
   align-items: flex-start;
+}
+
+#content {
+
+  padding: 1rem 0;
+  font-weight: lighter
 }

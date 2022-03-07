@@ -10,6 +10,9 @@ nav {
   height: 70px;
   padding: 0 100px;
   margin: 10px;
+  font-weight: 500;
+  font-family: "DM Serif Display", serif;
+  font-weight: lighter;
 }
 
 nav form {
