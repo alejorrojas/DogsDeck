@@ -10,6 +10,7 @@ import {
   orderWeight,
   setLoading,
 } from "../redux/actions";
+import styles from "../styles/Filters.module.css";
 
 function Filters() {
   const temps = useSelector((state) => state.temps);
@@ -59,9 +60,11 @@ function Filters() {
   }, [dispatch]);
 
   return (
-    <form onSubmit={(e) => e.reset()}>
-      <button onClick={handleRefresh}>Refresh</button>
-      <div>
+    <form onSubmit={(e) => e.reset()} className={styles.filterBox}>
+      <button onClick={handleRefresh} className={styles.btn}>
+        Refresh
+      </button>
+       <div>
         <label>Order by </label>
         <select
           disabled={!state.alreadyFiltered ? false : true}

@@ -29,7 +29,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: true,
+        error: !state.error,
       };
     case DELETE_DOG:
       return { ...state };

@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { getDogs, setLoading } from "../redux/actions";
-import SearchBar from "./SearchBar";
 import load from "../assets/loading.gif";
 import Pagination from "./Pagination";
 import Error from "./Error";
 import Cards from "./Cards";
-import Filters from "./Filters";
+import { Redirect } from "react-router-dom";
 
 function Home() {
   const { allDogs, loading, error } = useSelector((state) => state);
@@ -31,26 +29,18 @@ function Home() {
 
   return (
     <>
-      <h1>HOME PEREREQUE</h1>
-      <SearchBar />
-      <Link to="/dog">
-        <button>create</button>
-      </Link>
-      <Filters />
       {error ? (
-        <Error />
+        <Redirect to="*" />
       ) : (
         <>
-          {loading ? (
-            <img src={load} alt="loading..." />
-          ) : (
-            allDogs.length && <Cards dogs={currentCards} />
-          )}
-          {loading || (
+          {loading && <img src={load} alt="loading..." />}
+          {allDogs.length ? <Cards dogs={currentCards} /> : <div></div>}
+          {!loading && (
             <Pagination
               cardsPerPage={state.cardsPerPage}
               allDogs={allDogs.length}
               paginado={paginado}
+              active={state.currentPage}
             />
           )}
         </>

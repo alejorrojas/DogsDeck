@@ -10,10 +10,11 @@
   cursor: pointer;
   color: #ffff;
   font-family: "DM Serif Display", serif;
+  transition: all 0.5s ease;
 }
-/*HOVER NOT WORKING*/
-.homeBtn::hover {
-  padding: 25px 35px;
+
+.homeBtn:hover {
+  background-color: rgb(44, 44, 44);
 }
 
 .landingContainer {
@@ -27,7 +28,7 @@
   align-items: center;
 }
 
-.landingContainer> h1 {
+.landingContainer > h1 {
   font-size: 100px;
   color: #ffff;
   font-family: "DM Serif Display", serif;

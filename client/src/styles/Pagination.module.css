@@ -1,0 +1,33 @@
+.ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.number {
+  padding: 0.8rem;
+  background-color: transparent;
+  width: fit-content;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.number:hover {
+  padding: 0 1rem;
+  color: rgb(59, 59, 59);
+}
+
+.active {
+  padding: 0 1rem;
+  color: rgb(110, 110, 110);
+  background-color: transparent;
+  width: fit-content;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}

@@ -1,8 +1,9 @@
 .cardsContainer{
     display: flex;
+    justify-content: center;
     width: 90vw;
     margin: 1rem;
-    padding: 2rem;
+    padding: 1rem;
     flex-wrap: wrap;
 }
 

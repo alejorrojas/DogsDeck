@@ -1,0 +1,55 @@
+.filterBox {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+    outline: none;
+  padding: 1rem;
+  border-radius: 0.5em;
+  box-shadow: 4px 4px 12px #c5c5c56b, -6px -6px 12px #ffffff8a;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  margin: 0;
+}
+
+.filterBox:hover {
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.btn {
+  color: #090909;
+  padding: 0.2em 1.2em;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border: 1px solid #fff;
+}
+
+label {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(37, 37, 37);
+}
+
+select {
+  text-align: center;
+  color: rgb(37, 37, 37);
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  background-color:rgba(155, 155, 155, 0.13) ;
+  border-radius: 0.2rem;
+  margin: 0 0.5rem;
+}

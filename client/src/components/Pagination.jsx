@@ -1,37 +1,26 @@
 import React from "react";
+import styles from "../styles/Pagination.module.css";
 
-function Pagination({ cardsPerPage, allDogs, paginado }) {
+function Pagination({ cardsPerPage, allDogs, paginado, active }) {
   const pagNumbers = [];
 
-  for (let i = 0; i < Math.ceil(allDogs / cardsPerPage); i++) { 
+  for (let i = 0; i < Math.ceil(allDogs / cardsPerPage); i++) {
     pagNumbers.push(i + 1);
   }
 
   return (
     <div>
-      <ul
-        style={{
-          display: "flex",
-          listStyle: "none",
-          justifyContent: "center",
-          gap: "1rem",
-        }}
-      >
+      <ul className={styles.ul}>
         {pagNumbers &&
           pagNumbers.map((number) => {
             return (
-              <button
+              <li
                 onClick={() => paginado(number)}
-                style={{
-                  padding: "1rem",
-                  border: "1px solid #000",
-                  borderRadius: "15%",
-                  cursor: "pointer",
-                }}
+                className={active === number ? styles.active : styles.number}
                 key={number}
               >
                 {number}
-              </button>
+              </li>
             );
           })}
       </ul>
