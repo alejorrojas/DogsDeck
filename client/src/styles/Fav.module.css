@@ -1,0 +1,11 @@
+.title{
+    font-family: "DM Serif Display", serif;
+    font-weight: lighter;
+    text-align: center;
+    margin: 100px;
+    cursor: pointer;
+  }
+
+  .title:hover{
+      color: rgb(71, 71, 71);
+  }

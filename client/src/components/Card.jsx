@@ -1,20 +1,24 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addFav } from "../redux/actions";
+import { addFav, deleteFav } from "../redux/actions";
 import styles from "../styles/Card.module.css";
 
 function Card({ data }) {
+  const { favs } = useSelector((state) => state);
   const { name, weight, temperament, image, id } = data;
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
 
   const handleFav = (data) => {
-    dispatch(addFav(data));
+    const included = favs.filter((dog) => dog.id === data.id);
+    included.length && dispatch(deleteFav(data));
+    !included.length && dispatch(addFav(data));
+    setActive(!active);
   };
 
   return (
     <div className={styles.card}>
-      <button onClick={() => handleFav(data)}>+</button>
       <Link to={`/dogs/${id}`} className={styles.link}>
         <img
           width="200px"
@@ -25,9 +29,18 @@ function Card({ data }) {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIiPMg_MKr38MbImyVVm6y02fidXaaGiu6D1Pm4-sd_FFQHL_scIJLIcVgki8nf5OQrI&usqp=CAU"
           }
         />
-        <h4 className={styles.title}>{name} </h4>
       </Link>
-      <div id={styles.content}>
+      <div className={styles.headerCard}>
+        <button
+          onClick={() => handleFav(data)}
+          className={active ? styles.favActive : styles.fav}
+        >
+          +
+        </button>
+        <h2 className={styles.title}>{name} </h2>
+      </div>
+
+      <div className={styles.content}>
         <div className={styles.weight}>
           <h3>Weight</h3>
           <span>{weight} Kg </span>

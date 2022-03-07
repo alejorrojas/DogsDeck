@@ -6,10 +6,14 @@ img {
   margin-bottom: 0.5rem;
 }
 
+li {
+  margin: 5px;
+}
 
-.title{
+.title {
   font-family: "DM Serif Display", serif;
   font-weight: lighter;
+  margin-left: 10px;
 }
 
 .link {
@@ -34,12 +38,13 @@ img {
   box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.158);
   transition: all ease 0.5s;
   cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif
-}
-li{
-  margin: 5px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+.headerCard {
+  display: flex;
+  align-items: center;
+}
 .card:hover {
   transform: translate(0px, -5px);
   box-shadow: 0px 25px 25px 0px rgba(0, 0, 0, 0.459);
@@ -49,8 +54,26 @@ li{
   align-items: flex-start;
 }
 
-#content {
-
+.content {
   padding: 1rem 0;
-  font-weight: lighter
+  font-weight: lighter;
+}
+
+.fav,
+.favActive {
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+  background-image: url("../assets/favIcon.svg");
+}
+
+@supports (filter: invert(100%)) {
+  .favActive {
+    filter: invert(20%) sepia(100%) saturate(4000%);
+  }
 }
