@@ -5,3 +5,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.loading {
+  display: block;
+  margin: 100px auto;
+  width: 40%;
+}
+

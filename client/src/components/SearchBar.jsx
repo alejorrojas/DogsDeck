@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { findDogs, setLoading } from "../redux/actions";
 import styles from "../styles/Nav.module.css";
-import searchIcon from "../assets/searchIcon.svg";
 
 function SearchBar() {
   const dispatch = useDispatch();

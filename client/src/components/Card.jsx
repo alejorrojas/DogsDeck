@@ -42,14 +42,16 @@ function Card({ data }) {
 
       <div className={styles.content}>
         <div className={styles.weight}>
-          <h3>Weight</h3>
+          <h4>Weight</h4>
           <span>{weight} Kg </span>
         </div>
         <div className={styles.tempsBox}>
-          <h3>Temperaments</h3>
-          {temperament?.map((temp) => {
-            return <li key={temp}>{temp}</li>;
-          })}
+          <details className={styles.detail} >
+            <summary>Temperaments</summary>
+            {temperament?.map((temp) => {
+              return <option key={temp}>{temp}</option>;
+            })}
+          </details>
         </div>
       </div>
     </div>

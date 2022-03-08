@@ -1,8 +1,7 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import {  NavLink, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import icon from "../assets/icon.png";
 import styles from "../styles/Nav.module.css";
-import filterIcon from "../assets/filterIcon.svg";
 import Filters from "./Filters";
 import { useState } from "react";
 
@@ -12,8 +11,6 @@ function Nav() {
     navItems: false,
   });
   const { pathname } = useLocation();
-  const navItems = document.querySelector(`.${styles.navItems}`);
-  console.log(navItems);
   const inLanding = pathname === "/" && true;
   const handleClick = () => {
     setActive({ ...active, filters: !active.filters });
@@ -36,7 +33,7 @@ function Nav() {
           }
         >
           <NavLink to="/home" activeClassName={`${styles.active}`}>
-            <img src={icon} className={styles.logo} />
+            <img src={icon} className={styles.logo} alt='logo'/>
           </NavLink>
           <NavLink to="/favs" activeClassName={`${styles.active}`}>
             Favourites
