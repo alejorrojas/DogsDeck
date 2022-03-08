@@ -8,13 +8,13 @@ function Card({ data }) {
   const { favs } = useSelector((state) => state);
   const { name, weight, temperament, image, id } = data;
   const dispatch = useDispatch();
-  const [active, setActive] = useState(false);
+  const active = favs.find((dog => dog.id === data.id))
 
   const handleFav = (data) => {
     const included = favs.filter((dog) => dog.id === data.id);
     included.length && dispatch(deleteFav(data));
     !included.length && dispatch(addFav(data));
-    setActive(!active);
+   
   };
 
   return (
