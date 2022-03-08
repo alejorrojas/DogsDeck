@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addFav, deleteFav } from "../redux/actions";
@@ -8,13 +8,12 @@ function Card({ data }) {
   const { favs } = useSelector((state) => state);
   const { name, weight, temperament, image, id } = data;
   const dispatch = useDispatch();
-  const active = favs.find((dog => dog.id === data.id))
+  const active = favs.find((dog) => dog.id === data.id);
 
   const handleFav = (data) => {
     const included = favs.filter((dog) => dog.id === data.id);
     included.length && dispatch(deleteFav(data));
     !included.length && dispatch(addFav(data));
-   
   };
 
   return (
@@ -46,7 +45,7 @@ function Card({ data }) {
           <span>{weight} Kg </span>
         </div>
         <div className={styles.tempsBox}>
-          <details className={styles.detail} >
+          <details className={styles.detail}>
             <summary>Temperaments</summary>
             {temperament?.map((temp) => {
               return <option key={temp}>{temp}</option>;

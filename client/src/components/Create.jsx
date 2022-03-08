@@ -133,117 +133,133 @@ function CharacterCreate() {
   };
 
   return (
-    <>
-      <h1 className={styles.title}>Create your own dog</h1>
-      <div className={styles} >
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Breed</label>
-            <input
-              type="text"
-              value={input.name}
-              name="name"
-              onChange={handleChange}
-            />
-            {errors.name && <span>{errors.name} </span>}
-          </div>
-          <div>
-            <label> Height </label>
-            <label>Min </label>
-            <input
-              type="number"
-              value={input.height_min}
-              name="height_min"
-              onChange={handleChange}
-            />
-            <label>Max </label>
-            <input
-              type="number"
-              value={input.height_max}
-              name="height_max"
-              onChange={handleChange}
-            />
-          </div>
-          {errors.height && <span>{errors.height} </span>}
-          <div>
-            <label> Weight </label>
-            <label>Min </label>
-            <input
-              type="number"
-              value={input.weight_min}
-              name="weight_min"
-              onChange={handleChange}
-              min={input.height_min}
-            />
-            <label>Max </label>
-            <input
-              type="number"
-              value={input.weight_max}
-              name="weight_max"
-              onChange={handleChange}
-            />
-          </div>
-          {errors.weight && <span>{errors.weight} </span>}
-          <div>
-            <label>Life Span</label>
-            <input
-              type="number"
-              value={input.life_span}
-              name="life_span"
-              onChange={handleChange}
-            />
-          </div>
-          {errors.negatives && <span>{errors.negatives}</span>}
-          {errors.nan && <span>{errors.nan} </span>}
-          <div>
-            <label>Image</label>
-            <input
-              type="url"
-              value={input.image}
-              name="image"
-              onChange={handleChange}
-            />
-          </div>
-
-          <label style={{ fontWeight: "bold" }}>Temperaments: </label>
-          <select onChange={handleSelect}>
-            {!input.temperament.length ? (
-              <option>Select Temperament</option>
-            ) : (
-              <option disabled={true}>Select Temperament</option>
-            )}
-
-            {temps.map((temp) => {
-              return (
-                <option key={temp.name} value={temp.name}>
-                  {temp.name}{" "}
-                </option>
-              );
-            })}
-          </select>
-          <hr />
-          {console.log(errors)}
-          {Object.keys(errors).length ? (
-            <div>
-              <button type="submit" disabled={true}>
-                Create your dog
+    <div className={styles.container}>
+      <div className={styles.info}>
+        <h1 className={styles.title}>Create your own dog</h1>
+        <img
+          src={
+            input.image.length
+              ? input.image
+              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIiPMg_MKr38MbImyVVm6y02fidXaaGiu6D1Pm4-sd_FFQHL_scIJLIcVgki8nf5OQrI&usqp=CAU"
+          }
+        />
+        <div className={styles.tempsContainer} >
+          {input.temperament.map((temp) => (
+            <div className={styles.tempsSelected}>
+              <button name={temp} onClick={handleDelete}>
+                X
               </button>
+              <p>{temp}</p>
             </div>
-          ) : (
-            <button type="submit">Create your dog</button>
-          )}
-        </form>
+          ))}
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className={styles.formBox}>
+        <label>Breed</label>
+        <input
+          type="text"
+          value={input.name}
+          name="name"
+          onChange={handleChange}
+        />
+        {errors.name && <span className={styles.error}>{errors.name} </span>}
 
-        {input.temperament.map((temp) => (
-          <div key={`add${temp}`}>
-            <p>{temp}</p>
-            <button name={temp} onClick={handleDelete}>
-              X
+        <label> Height </label>
+
+        <input
+          type="number"
+          value={input.height_min}
+          name="height_min"
+          onChange={handleChange}
+          placeholder="Min "
+        />
+        <input
+          type="number"
+          value={input.height_max}
+          name="height_max"
+          onChange={handleChange}
+          placeholder="Max "
+        />
+
+        {errors.height && (
+          <span className={styles.error}>{errors.height} </span>
+        )}
+
+        <label> Weight </label>
+
+        <input
+          type="number"
+          value={input.weight_min}
+          name="weight_min"
+          onChange={handleChange}
+          min={input.height_min}
+          placeholder="Min "
+        />
+
+        <input
+          type="number"
+          value={input.weight_max}
+          name="weight_max"
+          onChange={handleChange}
+          placeholder="Max "
+        />
+
+        {errors.weight && (
+          <span className={styles.error}>{errors.weight} </span>
+        )}
+        <label>Life span</label>
+
+        <input
+          type="number"
+          value={input.life_span}
+          name="life_span"
+          onChange={handleChange}
+          placeholder="Life Span"
+        />
+
+        {errors.negatives && (
+          <span className={styles.error}>{errors.negatives}</span>
+        )}
+        {errors.nan && <span className={styles.error}>{errors.nan} </span>}
+        <label>Image</label>
+
+        <input
+          type="url"
+          value={input.image}
+          name="image"
+          onChange={handleChange}
+          placeholder="Url "
+        />
+
+        <label style={{ fontWeight: "bold" }}>Temperaments: </label>
+        <select onChange={handleSelect}>
+          {!input.temperament.length ? (
+            <option>Select Temperament</option>
+          ) : (
+            <option disabled={true}>Select Temperament</option>
+          )}
+
+          {temps.map((temp) => {
+            return (
+              <option key={temp.name} value={temp.name}>
+                {temp.name}{" "}
+              </option>
+            );
+          })}
+        </select>
+        {Object.keys(errors).length ? (
+          <div>
+            <button type="submit" disabled={true} className={styles.btn}>
+              Create
             </button>
           </div>
-        ))}
-      </div>
-    </>
+        ) : (
+          <button type="submit" className={styles.btn}>
+            Create
+          </button>
+        )}
+      </form>
+    </div>
   );
 }
 

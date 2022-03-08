@@ -1,14 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
+
 
 .loading {
   display: block;
   margin: 100px auto;
   width: 40%;
 }
-

@@ -1,11 +1,107 @@
-.title{
-    font-family: "DM Serif Display", serif;
-    font-weight: lighter;
-    text-align: center;
-    margin: 50px auto;
-    cursor: pointer;
-  }
+.container {
+  display: flex;
+  justify-content: space-around;
+}
 
-  .title:hover{
-      color: rgb(71, 71, 71);
-  }
+.info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.info > img {
+  object-fit: cover;
+  padding: 0.2rem;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  border: 2px solid rgb(139, 139, 139);
+}
+
+.tempsContainer{margin: 50px;}
+
+.tempsSelected{
+    margin: 50px;
+    display: flex;
+
+    justify-content: flex-start;
+    font-size: 24px;
+}
+.tempsSelected > button{
+    cursor: pointer;
+    font-size: 18px;
+    background: none;
+    border: none;
+    outline: none;
+    color: #63222a;
+    margin: 0 20px;
+}
+
+.title {
+  font-family: "DM Serif Display", serif;
+  font-weight: lighter;
+  text-align: center;
+  margin: 50px auto;
+  cursor: pointer;
+}
+
+.title:hover {
+  color: rgb(71, 71, 71);
+}
+
+.formBox:hover {
+  box-shadow: 0 10px 40px #00000080;
+}
+
+.formBox > input {
+  margin: 10px;
+  height: 20px;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #fff;
+}
+
+.formBox {
+  text-align: center;
+  width: 40%;
+  height: fit-content;
+  margin: 50px;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+  background: rgb(241, 241, 241);
+  box-shadow: 0 8px 32px #00000080;
+  border-radius: 0.6rem;
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.minMax {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.error {
+  color: #63222a;
+}
+
+.btn {
+  color: #090909;
+  padding: 0.2em 1.2em;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #eeeeee62;
+  border: 2px solid #000000;
+
+  cursor: pointer;
+  font-family: "DM Serif Display", serif;
+
+  transition: all 0.3s ease;
+}
