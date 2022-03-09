@@ -117,6 +117,10 @@ const checkUndefined = (input) => {
   }
 };
 
+const checkLimit = (arr, limit) => {
+  return arr.filter((el) => el > limit).length;
+};
+
 const checkNaN = (arr) => {
   return arr.filter((el) => isNaN(parseInt(el))).length;
 };
@@ -129,11 +133,16 @@ const checkMinMax = (min, max) => {
   return true;
 };
 
+const checkNegatives = (arr) => {
+  return arr.filter((el) => parseInt(el) < 0).length;
+};
+
 const validate = (input) => {
   const regexName = /^[a-zA-Z ]+$/;
   const { life_span, height_max, height_min, weight_max, weight_min, name } =
     input;
   const errors = {};
+  const numbers = [height_max, height_min, weight_max, weight_min, life_span];
   //check undefined
   if (checkUndefined(input)) {
     errors.allFields = "All fields are required";
@@ -153,11 +162,18 @@ const validate = (input) => {
     errors.height = "The max must be greater than the min";
   }
   //check number type
-  else if (
-    checkNaN([height_max, height_min, weight_max, weight_min, life_span])
-  ) {
+  else if (checkNaN(numbers)) {
     errors.nan =
       "The weight, height and life span inputs are required and must be a number";
+  }
+  if (checkNegatives(numbers)) {
+    errors.negatives = "Negative numbers are not valid";
+  }
+  if (checkLimit([weight_min, weight_max], 200)) {
+    errors.tooHeavy = "The weight can't be more than 200Kg";
+  }
+  if (checkLimit([height_min, height_max], 2)) {
+    errors.tooTall = "The height can't be more than 2m";
   }
 
   return errors;

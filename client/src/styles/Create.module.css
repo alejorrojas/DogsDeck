@@ -17,6 +17,7 @@
   height: 150px;
   border-radius: 999px;
   border: 2px solid rgb(139, 139, 139);
+  cursor: pointer;
 }
 
 .tempsContainer{margin: 50px;}
@@ -34,8 +35,11 @@
     background: none;
     border: none;
     outline: none;
-    color: #63222a;
+    color: #8a232f;
     margin: 0 20px;
+}
+.tempsSelected > button:hover{
+  color: #cc5f6c;
 }
 
 .title {

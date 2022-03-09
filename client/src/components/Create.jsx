@@ -14,6 +14,10 @@ const checkUndefined = (input) => {
   }
 };
 
+const checkLimit = (arr, limit) => {
+  return arr.filter((el) => el > limit).length;
+};
+
 const checkNaN = (arr) => {
   return arr.filter((el) => isNaN(parseInt(el))).length;
 };
@@ -26,7 +30,7 @@ const checkMinMax = (min, max) => {
 };
 
 const checkNegatives = (arr) => {
-  return arr.filter((el) => parseInt(el) < 1).length;
+  return arr.filter((el) => parseInt(el) < 0).length;
 };
 
 const validate = (input) => {
@@ -35,6 +39,7 @@ const validate = (input) => {
     input;
   const numbers = [height_max, height_min, weight_max, weight_min, life_span];
   const errors = {};
+
   //check undefined
   if (checkUndefined(input)) {
     errors.allFields = "All fields are required";
@@ -57,6 +62,13 @@ const validate = (input) => {
   //check number type
   else if (checkNaN(numbers)) {
     errors.nan = "The weight, height and life span inputs must be a number";
+  }
+  //check max
+  if (checkLimit([weight_min, weight_max], 200)) {
+    errors.tooHeavy = "The weight can't be more than 200Kg";
+  }
+  if (checkLimit([height_min, height_max], 2)) {
+    errors.tooTall = "The height can't be more than 2m";
   }
 
   return errors;
@@ -127,7 +139,7 @@ function CharacterCreate() {
     e.preventDefault();
     dispatch(postDog(input));
     console.log(input);
-    alert("Personaje creado padre");
+    alert("Dog created successfully");
     setInput(initialState);
     history.push("/home");
   };
@@ -142,8 +154,9 @@ function CharacterCreate() {
               ? input.image
               : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIiPMg_MKr38MbImyVVm6y02fidXaaGiu6D1Pm4-sd_FFQHL_scIJLIcVgki8nf5OQrI&usqp=CAU"
           }
+          alt="dog profile"
         />
-        <div className={styles.tempsContainer} >
+        <div className={styles.tempsContainer}>
           {input.temperament.map((temp) => (
             <div className={styles.tempsSelected}>
               <button name={temp} onClick={handleDelete}>
@@ -184,6 +197,9 @@ function CharacterCreate() {
         {errors.height && (
           <span className={styles.error}>{errors.height} </span>
         )}
+        {errors.tooTall && (
+          <span className={styles.error}>{errors.tooTall} </span>
+        )}
 
         <label> Weight </label>
 
@@ -192,7 +208,6 @@ function CharacterCreate() {
           value={input.weight_min}
           name="weight_min"
           onChange={handleChange}
-          min={input.height_min}
           placeholder="Min "
         />
 
@@ -206,6 +221,9 @@ function CharacterCreate() {
 
         {errors.weight && (
           <span className={styles.error}>{errors.weight} </span>
+        )}
+        {errors.tooHeavy && (
+          <span className={styles.error}>{errors.tooHeavy} </span>
         )}
         <label>Life span</label>
 
