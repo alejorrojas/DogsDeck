@@ -128,9 +128,11 @@ const checkNaN = (arr) => {
 const checkMinMax = (min, max) => {
   const nMax = parseInt(max);
   const nMin = parseInt(min);
-  if (nMax < 1 || nMin < 1) return false;
   if (nMin > nMax || nMin === nMax) return false;
   return true;
+};
+const checkZero = (arr) => {
+  return arr.filter((el) => parseInt(el) === 0).length;
 };
 
 const checkNegatives = (arr) => {
@@ -141,8 +143,9 @@ const validate = (input) => {
   const regexName = /^[a-zA-Z ]+$/;
   const { life_span, height_max, height_min, weight_max, weight_min, name } =
     input;
-  const errors = {};
   const numbers = [height_max, height_min, weight_max, weight_min, life_span];
+  const errors = {};
+
   //check undefined
   if (checkUndefined(input)) {
     errors.allFields = "All fields are required";
@@ -151,9 +154,10 @@ const validate = (input) => {
   if (!regexName.test(name)) {
     errors.name = "Invalid name format";
   }
-  //check life-span
-  if (parseInt(life_span) < 1)
-    errors.life_span = "The life span could not be lower than 1";
+  //check negatives
+  if (checkNegatives(numbers)) {
+    errors.negatives = "Negative numbers are not valid";
+  }
   //check min-max
   if (!checkMinMax(weight_min, weight_max)) {
     errors.weight = "The max must be greater than the min";
@@ -163,19 +167,22 @@ const validate = (input) => {
   }
   //check number type
   else if (checkNaN(numbers)) {
-    errors.nan =
-      "The weight, height and life span inputs are required and must be a number";
+    errors.nan = "The weight, height and life span inputs must be a number";
   }
-  if (checkNegatives(numbers)) {
-    errors.negatives = "Negative numbers are not valid";
+  //check min
+  if (checkZero(numbers)) {
+    errors.zero = "The value must be greater than zero";
   }
+  //check max
   if (checkLimit([weight_min, weight_max], 200)) {
     errors.tooHeavy = "The weight can't be more than 200Kg";
   }
   if (checkLimit([height_min, height_max], 2)) {
     errors.tooTall = "The height can't be more than 2m";
   }
-
+  if (checkLimit([life_span], 30)) {
+    errors.tooOld = "The life span can't be more than 30 years";
+  }
   return errors;
 };
 

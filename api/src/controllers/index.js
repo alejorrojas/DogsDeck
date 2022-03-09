@@ -56,7 +56,7 @@ controller.dogPost = async (req, res) => {
 
   const errors = validate(req.body);
   if (Object.keys(errors).length)
-    res.send("Check again your dog info before create");
+    res.send(400, errors);
   else {
     const dogFormat = {
       name,

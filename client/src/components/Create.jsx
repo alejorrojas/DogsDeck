@@ -14,6 +14,10 @@ const checkUndefined = (input) => {
   }
 };
 
+const checkZero = (arr) => {
+  return arr.filter((el) => parseInt(el) === 0).length;
+};
+
 const checkLimit = (arr, limit) => {
   return arr.filter((el) => el > limit).length;
 };
@@ -63,12 +67,19 @@ const validate = (input) => {
   else if (checkNaN(numbers)) {
     errors.nan = "The weight, height and life span inputs must be a number";
   }
+  //check min
+  if (checkZero(numbers)) {
+    errors.zero = "The value must be greater than zero";
+  }
   //check max
   if (checkLimit([weight_min, weight_max], 200)) {
     errors.tooHeavy = "The weight can't be more than 200Kg";
   }
   if (checkLimit([height_min, height_max], 2)) {
     errors.tooTall = "The height can't be more than 2m";
+  }
+  if (checkLimit([life_span], 30)) {
+    errors.tooOld = "The life span can't be more than 30 years";
   }
 
   return errors;
@@ -239,6 +250,10 @@ function CharacterCreate() {
           <span className={styles.error}>{errors.negatives}</span>
         )}
         {errors.nan && <span className={styles.error}>{errors.nan} </span>}
+        {errors.tooOld && (
+          <span className={styles.error}>{errors.tooOld} </span>
+        )}
+        {errors.zero && <span className={styles.error}>{errors.zero} </span>}
         <label>Image</label>
 
         <input

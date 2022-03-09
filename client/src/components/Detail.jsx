@@ -27,9 +27,8 @@ function Detail() {
 
   return (
     <div className={styles.container}>
-      {error ? (
-        <Error />
-      ) : loading ? (
+      {error && <Error />}
+      {loading ? (
         <img src={load} alt="loading..." className="loading" />
       ) : (
         <>
@@ -48,8 +47,7 @@ function Detail() {
           <div className={styles.infoBox}>
             <div>
               <details>
-                
-                <summary className={styles.summary} >Temperaments</summary>
+                <summary className={styles.summary}>Temperaments</summary>
                 {temperament?.map((temp) => {
                   return <option key={temp}>{temp}</option>;
                 })}
@@ -67,7 +65,11 @@ function Detail() {
               <h3>Life Span</h3>
               <span>{life_span} years</span>
             </div>
-           {createdInDb && <button onClick={handleDelete} className={styles.btnDelete} >x</button>}
+            {createdInDb && (
+              <button onClick={handleDelete} className={styles.btnDelete}>
+                x
+              </button>
+            )}
           </div>
         </>
       )}
