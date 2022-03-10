@@ -11,9 +11,9 @@ function Card({ data }) {
   const active = favs.find((dog) => dog.id === data.id);
 
   const handleFav = (data) => {
-    const included = favs.filter((dog) => dog.id === data.id);
-    included.length && dispatch(deleteFav(data));
-    !included.length && dispatch(addFav(data));
+    const included = favs.find((dog) => dog.id === data.id);
+    included && dispatch(deleteFav(data));
+    !included && dispatch(addFav(data));
   };
 
   return (

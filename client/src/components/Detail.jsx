@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { deleteDog, findId, setLoading } from "../redux/actions";
+import { deleteDog, deleteFav, findId, setLoading } from "../redux/actions";
 import load from "../assets/loading.gif";
 import Error from "./Error";
 import styles from "../styles/Detail.module.css";
@@ -10,12 +10,14 @@ function Detail() {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { detail, loading, error } = useSelector((state) => state);
+  const { detail, loading, error, favs } = useSelector((state) => state);
   const { name, image, weight, height, temperament, life_span, createdInDb } =
     detail;
 
   const handleDelete = () => {
+    const favDelete = favs.find((dog) => dog.id === id);
     dispatch(deleteDog(id));
+    favDelete && dispatch(deleteFav(favDelete));
     alert("Dog deleted succesfully");
     history.push("/home");
   };
@@ -27,8 +29,9 @@ function Detail() {
 
   return (
     <div className={styles.container}>
-      {error && <Error />}
-      {loading ? (
+      {error ? (
+        <Error />
+      ) : loading ? (
         <img src={load} alt="loading..." className="loading" />
       ) : (
         <>

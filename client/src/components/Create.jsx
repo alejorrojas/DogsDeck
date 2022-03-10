@@ -15,7 +15,7 @@ const checkUndefined = (input) => {
 };
 
 const checkZero = (arr) => {
-  return arr.filter((el) => parseInt(el) === 0).length;
+  return arr.find((el) => parseInt(el) === 0);
 };
 
 const checkLimit = (arr, limit) => {
@@ -169,7 +169,7 @@ function CharacterCreate() {
         />
         <div className={styles.tempsContainer}>
           {input.temperament.map((temp) => (
-            <div className={styles.tempsSelected}>
+            <div className={styles.tempsSelected} key={temp}>
               <button name={temp} onClick={handleDelete}>
                 X
               </button>
@@ -179,8 +179,9 @@ function CharacterCreate() {
         </div>
       </div>
       <form onSubmit={handleSubmit} className={styles.formBox}>
-        <label>Breed</label>
+        <label htmlFor="nameInput">Name</label>
         <input
+          id="nameInput"
           type="text"
           value={input.name}
           name="name"
@@ -188,9 +189,10 @@ function CharacterCreate() {
         />
         {errors.name && <span className={styles.error}>{errors.name} </span>}
 
-        <label> Height </label>
+        <label htmlFor="heightInput">Height</label>
 
         <input
+          id="heightInput"
           type="number"
           value={input.height_min}
           name="height_min"
@@ -198,6 +200,7 @@ function CharacterCreate() {
           placeholder="Min "
         />
         <input
+          id="heightInput"
           type="number"
           value={input.height_max}
           name="height_max"
@@ -212,9 +215,10 @@ function CharacterCreate() {
           <span className={styles.error}>{errors.tooTall} </span>
         )}
 
-        <label> Weight </label>
+        <label htmlFor="weightInput">Weight</label>
 
         <input
+          id="weightInput"
           type="number"
           value={input.weight_min}
           name="weight_min"
@@ -223,6 +227,7 @@ function CharacterCreate() {
         />
 
         <input
+          id="weightInput"
           type="number"
           value={input.weight_max}
           name="weight_max"
@@ -236,9 +241,10 @@ function CharacterCreate() {
         {errors.tooHeavy && (
           <span className={styles.error}>{errors.tooHeavy} </span>
         )}
-        <label>Life span</label>
+        <label htmlFor="lifeInput">Life span</label>
 
         <input
+          id="lifeInput"
           type="number"
           value={input.life_span}
           name="life_span"
@@ -254,9 +260,10 @@ function CharacterCreate() {
           <span className={styles.error}>{errors.tooOld} </span>
         )}
         {errors.zero && <span className={styles.error}>{errors.zero} </span>}
-        <label>Image</label>
+        <label htmlFor="imageInput">Image</label>
 
         <input
+          id="imageInput"
           type="url"
           value={input.image}
           name="image"
@@ -264,8 +271,8 @@ function CharacterCreate() {
           placeholder="Url "
         />
 
-        <label style={{ fontWeight: "bold" }}>Temperaments: </label>
-        <select onChange={handleSelect}>
+        <label htmlFor="tempsInput">Temperaments</label>
+        <select id="tempsInput" onChange={handleSelect}>
           {!input.temperament.length ? (
             <option>Select Temperament</option>
           ) : (

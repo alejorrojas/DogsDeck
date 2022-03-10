@@ -96,8 +96,8 @@ export const getTemps = () => {
 export const addFav = (payload) => {
   return { type: ADD_FAV, payload };
 };
-export const deleteFav = (payload) => {
-  return { type: DELETE_FAV, payload };
+export const deleteFav = (id) => {
+  return { type: DELETE_FAV, payload: id };
 };
 
 export const setLoading = () => {
