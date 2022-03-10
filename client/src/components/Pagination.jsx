@@ -10,23 +10,7 @@ function Pagination({ cardsPerPage, allDogs, paginado, current }) {
 
   return (
     <div>
-      <ul className={styles.ul}>
-        {pagNumbers &&
-          pagNumbers.map((number) => {
-            return (
-              <li
-                onClick={() => {
-                  paginado(number);
-                }}
-                className={current === number ? styles.active : styles.number}
-                key={number}
-              >
-                {number}
-              </li>
-            );
-          })}
-      </ul>
-      <div className={styles.paginationMobile}>
+      <div className={styles.pagination}>
         {current !== 1 && (
           <button onClick={() => paginado(current - 1)} className={styles.prev}>
             +

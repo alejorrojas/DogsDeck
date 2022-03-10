@@ -5,6 +5,7 @@ import load from "../assets/loading.gif";
 import Pagination from "./Pagination";
 import Cards from "./Cards";
 import { Redirect } from "react-router-dom";
+import Slider from "./Slider";
 
 function Home() {
   const { allDogs, error, loading } = useSelector((state) => state);
@@ -39,6 +40,7 @@ function Home() {
               <img src={load} alt="loading..." />
             </div>
           )}
+        <Slider/>
           {allDogs.length ? <Cards dogs={currentCards} /> : <div></div>}
           {!loading && (
             <footer>
