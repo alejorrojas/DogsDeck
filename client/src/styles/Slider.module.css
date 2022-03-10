@@ -57,3 +57,12 @@
     margin: 50px 0;
   }
 }
+
+
+@media screen and (min-width: 2000px){
+  .slider figure img {
+   
+  height: 500px;
+
+}
+}
