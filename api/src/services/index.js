@@ -122,21 +122,21 @@ const checkLimit = (arr, limit) => {
 };
 
 const checkNaN = (arr) => {
-  return arr.filter((el) => isNaN(parseInt(el))).length;
+  return arr.filter((el) => isNaN(Number(el))).length;
 };
 
 const checkMinMax = (min, max) => {
-  const nMax = parseInt(max);
-  const nMin = parseInt(min);
+  const nMax = Number(max);
+  const nMin = Number(min);
   if (nMin > nMax || nMin === nMax) return false;
   return true;
 };
 const checkZero = (arr) => {
-  return arr.filter((el) => parseInt(el) === 0).length;
+  return arr.filter((el) => Number(el) === 0).length;
 };
 
 const checkNegatives = (arr) => {
-  return arr.filter((el) => parseInt(el) < 0).length;
+  return arr.filter((el) => Number(el) < 0).length;
 };
 
 const validate = (input) => {

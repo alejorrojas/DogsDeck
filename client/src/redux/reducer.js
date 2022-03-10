@@ -14,6 +14,7 @@ import {
   ERROR,
   ADD_FAV,
   DELETE_FAV,
+  CLEAR,
 } from "./actions";
 
 const initialState = {
@@ -28,6 +29,11 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR:
+      return {
+        ...state,
+        allDogs: [...state.copyDogs],
+      };
     case ADD_FAV:
       return {
         ...state,

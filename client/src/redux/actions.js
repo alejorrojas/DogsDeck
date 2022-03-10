@@ -15,6 +15,7 @@ export const DELETE_DOG = "DELETE_DOG";
 export const ERROR = "ERROR";
 export const ADD_FAV = "ADD_FAV";
 export const DELETE_FAV = "DELETE_FAV";
+export const CLEAR = "CLEAR";
 
 export const getDogs = () => {
   return async function (dispatch) {
@@ -106,6 +107,9 @@ export const setLoading = () => {
 export const setError = () => {
   return { type: ERROR };
 };
+export const setClear = () => {
+  return { type: CLEAR };
+};
 
 export const deleteDog = (id) => {
   return async function (dispatch) {
@@ -121,6 +125,8 @@ export const deleteDog = (id) => {
     }
   };
 };
+
+
 
 /*FILTROS Y ORDENAMIENTOS */
 

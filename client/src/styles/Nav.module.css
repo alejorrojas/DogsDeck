@@ -149,6 +149,11 @@ a:active {
   nav {
     padding: 0;
   }
+  .logo{
+    width: 2.5rem;
+    height: 2.5rem;
+   
+  }
 
   .containerFilters > form {
     margin: auto;

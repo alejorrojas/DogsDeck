@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setClear } from "../redux/actions";
 import {
   filterApi,
   filterDb,
   filterTemp,
   getDogs,
-  getTemps,
   orderName,
   orderWeight,
   setLoading,
@@ -49,13 +49,11 @@ function Filters() {
     setState({ ...state, alreadyFiltered: true, currentPage: 1 });
   };
   const handleRefresh = () => {
-    dispatch(setLoading());
-    dispatch(getDogs());
+    dispatch(setClear());
     setState({ ...state, alreadyFiltered: false, currentPage: 1 });
   };
 
   useEffect(() => {
-    dispatch(getTemps());
     setState({ ...state, alreadyFiltered: false });
   }, [dispatch]);
 

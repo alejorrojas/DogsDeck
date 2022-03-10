@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogs, setLoading } from "../redux/actions";
+import { getDogs, getTemps, setLoading } from "../redux/actions";
 import load from "../assets/loading.gif";
 import Pagination from "./Pagination";
 import Cards from "./Cards";
@@ -23,17 +23,18 @@ function Home() {
 
   useEffect(() => {
     dispatch(setLoading());
+    dispatch(getTemps());
     dispatch(getDogs());
   }, [dispatch]);
 
-  console.log(currentCards);
+
   return (
     <>
       {error ? (
         <Redirect to="*" />
       ) : (
         <>
-          {!allDogs.length && (
+          {loading && (
             <div className="loading">
               <img src={load} alt="loading..." />
             </div>
