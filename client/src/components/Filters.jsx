@@ -62,9 +62,9 @@ function Filters() {
   return (
     <form onSubmit={(e) => e.reset()} className={styles.filterBox}>
       <button onClick={handleRefresh} className={styles.btn}>
-        Refresh
+        Clear
       </button>
-       <div>
+      <div>
         <label>Order by </label>
         <select
           disabled={!state.alreadyFiltered ? false : true}
@@ -75,6 +75,17 @@ function Filters() {
           <option value="Z-A">Z-A</option>
           <option value="moreweight">+ Weight</option>
           <option value="lessheight">- Wheight</option>
+        </select>
+      </div>
+      <div>
+        <label>Filter by</label>
+        <select
+          disabled={!state.alreadyFiltered ? false : true}
+          onChange={handleChange}
+        >
+          <option value="default">Default</option>
+          <option value="created">Created</option>
+          <option value="api">Web</option>
         </select>
       </div>
       <div>
@@ -92,17 +103,6 @@ function Filters() {
                 </option>
               );
             })}
-        </select>
-      </div>
-      <div>
-        <label>Filter by origin </label>
-        <select
-          disabled={!state.alreadyFiltered ? false : true}
-          onChange={handleChange}
-        >
-          <option value="default">Default</option>
-          <option value="created">Created</option>
-          <option value="api">Web</option>
         </select>
       </div>
     </form>

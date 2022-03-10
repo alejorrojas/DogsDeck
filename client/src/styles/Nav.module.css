@@ -9,7 +9,7 @@ nav {
   justify-content: space-around;
   height: 70px;
   padding: 0 100px;
-  margin: 10px;
+  margin: 30px;
   font-weight: 500;
   font-family: "DM Serif Display", serif;
   font-weight: lighter;
@@ -64,6 +64,7 @@ a:active {
 .navItems {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   gap: 4rem;
   padding: 50px;
@@ -83,9 +84,13 @@ a:active {
   background-color: #fff;
   border: none;
   cursor: pointer;
-  margin: 0.8rem;
+  text-align: center;
+  margin: auto 0.8rem;
   width: 1.5rem;
   height: 1.5rem;
+}
+.mobileMenu {
+  display: none;
 }
 
 .search {
@@ -103,12 +108,35 @@ a:active {
   display: none;
 }
 
-.container {
-
+.containerFilters {
   margin: 20px auto;
   width: 80vw;
   background-color: none;
-  transition: all 0.5 ease;
+}
+
+.navMobile {
+  display: none;
+}
+
+.mobileMenuActive {
+  display: none;
+}
+
+.mobileMenuActive > form > input {
+  font-size: 14px;
+  width: 200px;
+  height: 30px;
+  align-items: center;
+  outline: none;
+  background-color: none;
+  border: 0.5px solid rgba(58, 58, 58, 0.068);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  transition: all 0.5s ease;
+}
+.mobileMenuActive > form > input:hover {
+  box-shadow: -22px 5px 35px -3px rgba(0, 0, 0, 0.27);
 }
 
 @media (max-width: 1425px) {
@@ -117,35 +145,39 @@ a:active {
   }
 }
 
-@media (max-width: 1140px) {
+@media screen and (max-width: 1000px) {
   nav {
     padding: 0;
   }
 
-  .logo {
-    flex: 2;
-    text-align: center;
-    margin: 0 auto;
+  .containerFilters > form {
+    margin: auto;
+    height: fit-content;
+    gap: 2rem;
+    justify-content: space-around;
+    flex-direction: column;
+    font-size: 14px;
   }
-
+  .navMobile {
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+  }
+  .menuIcon {
+    display: initial;
+  }
   .navItems {
-    left: -100%;
-    position: fixed;
-    z-index: 99;
-    top: 70px;
-    width: 100%;
-    height: 100%;
-    background: #fff;
+    display: none;
+  }
+  .mobileMenuActive {
+    margin: 50px 0;
+    height: 200px;
     display: flex;
     flex-direction: column;
-    transition: left 0.3s ease;
-  }
-  .navItemsActive {
-    left: 0%;
-  }
-
-  .menuIcon,
-  .searchResponsive {
-    display: block;
+    justify-content: flex-start;
+    gap: 2rem;
+    font-size: 14px;
+    text-align: center;
+    background-color: #fff;
   }
 }

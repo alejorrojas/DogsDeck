@@ -109,3 +109,15 @@
 
   transition: all 0.3s ease;
 }
+
+
+@media (max-width: 1000px){
+  .container{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .formBox{
+    width: 70vw;
+  }
+}
