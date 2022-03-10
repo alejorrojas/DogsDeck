@@ -5,12 +5,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
-
 
 .loading {
-  display: block;
-  margin: 100px auto;
-  width: 40%;
+  margin: 0 auto;
+  display: flex;
+ width: 80%;
+ height: 50%;
+  justify-content: center;
+  align-items: center;
+
 }
+
+  .loading > img{
+    width: 80%;
+    height: 50%;
+  
+  }

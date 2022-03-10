@@ -6,7 +6,6 @@
   align-items: center;
 }
 
-
 .imgBox {
   object-fit: cover;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.534);
@@ -31,14 +30,13 @@
 }
 
 .infoBox {
-  width: 1000px;
+  width: 80vw;
   height: 200px;
   font-family: "Poppins", sans-serif;
   box-shadow: 0px 30px 41px 8px rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: space-around;
   position: relative;
-
 }
 
 .infoBox > div {
@@ -46,7 +44,7 @@
   margin: auto 0;
 }
 
-.summary  {
+.summary {
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
@@ -64,4 +62,44 @@
 
   width: 1.5rem;
   height: 1.5rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .imgBox {
+    object-fit: cover;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.534);
+    width: 100vw;
+    height: 400px;
+  }
+
+  .imgBox > img {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 400px;
+  }
+
+  .imgBox > h1 {
+    font-size: 50px;
+    margin: 150px 0;
+  }
+  .infoBox {
+    font-size: 14px;
+  }
+  .summary {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .infoBox {
+    flex-direction: column;
+    height: 400px;
+    justify-content: center;
+    text-align: center;
+    box-shadow: none;
+  }
+  .summary {
+    font-size: 14px;
+  }
 }

@@ -7,7 +7,7 @@ import Cards from "./Cards";
 import { Redirect } from "react-router-dom";
 
 function Home() {
-  const { allDogs, error } = useSelector((state) => state);
+  const { allDogs, error, loading } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [state, setState] = useState({
     currentPage: 1,
@@ -26,6 +26,7 @@ function Home() {
     dispatch(getDogs());
   }, [dispatch]);
 
+  console.log(currentCards);
   return (
     <>
       {error ? (
@@ -33,16 +34,20 @@ function Home() {
       ) : (
         <>
           {!allDogs.length && (
-            <img src={load} alt="loading..." className="loading" />
+            <div className="loading">
+              <img src={load} alt="loading..." />
+            </div>
           )}
           {allDogs.length ? <Cards dogs={currentCards} /> : <div></div>}
-          {allDogs.length && (
-            <Pagination
-              cardsPerPage={state.cardsPerPage}
-              allDogs={allDogs.length}
-              paginado={paginado}
-              active={state.currentPage}
-            />
+          {!loading && (
+            <footer>
+              <Pagination
+                cardsPerPage={state.cardsPerPage}
+                allDogs={allDogs.length}
+                paginado={paginado}
+                current={state.currentPage}
+              />
+            </footer>
           )}
         </>
       )}

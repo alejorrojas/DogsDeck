@@ -32,7 +32,9 @@ function Detail() {
       {error ? (
         <Error />
       ) : loading ? (
-        <img src={load} alt="loading..." className="loading" />
+        <div className="loading">
+          <img src={load} alt="loading..." />
+        </div>
       ) : (
         <>
           <div className={styles.imgBox}>

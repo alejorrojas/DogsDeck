@@ -1,3 +1,7 @@
+footer{
+  background-origin: padding-box;
+}
+
 .ul {
   display: flex;
   list-style: none;
@@ -30,4 +34,52 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.paginationMobile {
+  display: none;
+}
+.prev,
+.next {
+  background-repeat: no-repeat;
+  background-position: center;
+  color: rgba(255, 255, 255, 0);
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  margin: auto 0.8rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.prev {
+  background-image: url("../assets/prev.svg");
+}
+.next {
+  background-image: url("../assets/next.svg");
+}
+
+
+
+@media screen and (max-width: 1024px) {
+  .ul {
+    display: none;
+  }
+  .paginationMobile {
+    margin: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .paginationMobile > span {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 2000px){
+  .ul{
+    font-size: 1.8rem;
+  }
 }

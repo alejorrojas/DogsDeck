@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/Pagination.module.css";
 
-function Pagination({ cardsPerPage, allDogs, paginado, active }) {
+function Pagination({ cardsPerPage, allDogs, paginado, current }) {
   const pagNumbers = [];
 
   for (let i = 0; i < Math.ceil(allDogs / cardsPerPage); i++) {
@@ -15,8 +15,10 @@ function Pagination({ cardsPerPage, allDogs, paginado, active }) {
           pagNumbers.map((number) => {
             return (
               <li
-                onClick={() => paginado(number)}
-                className={active === number ? styles.active : styles.number}
+                onClick={() => {
+                  paginado(number);
+                }}
+                className={current === number ? styles.active : styles.number}
                 key={number}
               >
                 {number}
@@ -24,6 +26,19 @@ function Pagination({ cardsPerPage, allDogs, paginado, active }) {
             );
           })}
       </ul>
+      <div className={styles.paginationMobile}>
+        {current !== 1 && (
+          <button onClick={() => paginado(current - 1)} className={styles.prev}>
+            +
+          </button>
+        )}
+        <span>{current}</span>
+        {current !== pagNumbers.at(-1) && (
+          <button onClick={() => paginado(current + 1)} className={styles.next}>
+            +
+          </button>
+        )}
+      </div>
     </div>
   );
 }
