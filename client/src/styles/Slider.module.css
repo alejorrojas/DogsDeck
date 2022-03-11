@@ -3,6 +3,7 @@
   overflow: hidden;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.6);
   height: fit-content;
+  max-height: 400px;
 }
 
 

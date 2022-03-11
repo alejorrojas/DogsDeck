@@ -8,7 +8,6 @@ import {
   getDogs,
   orderName,
   orderWeight,
-  setLoading,
 } from "../redux/actions";
 import styles from "../styles/Filters.module.css";
 
@@ -60,15 +59,14 @@ function Filters() {
   return (
     <form onSubmit={(e) => e.reset()} className={styles.filterBox}>
       <button onClick={handleRefresh} className={styles.btn}>
-        Clear
+        clear
       </button>
       <div>
-        <label>Order by </label>
         <select
           disabled={!state.alreadyFiltered ? false : true}
           onChange={handleChange}
         >
-          <option value="default">Default</option>
+          <option value="default">Order</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
           <option value="moreweight">+ Weight</option>
@@ -76,23 +74,21 @@ function Filters() {
         </select>
       </div>
       <div>
-        <label>Filter by</label>
         <select
           disabled={!state.alreadyFiltered ? false : true}
           onChange={handleChange}
         >
-          <option value="default">Default</option>
+          <option value="default">Filter</option>
           <option value="created">Created</option>
           <option value="api">Web</option>
         </select>
       </div>
       <div>
-        <label>Filter by temperaments </label>
         <select
           disabled={!state.alreadyFiltered ? false : true}
           onChange={handleChange}
         >
-          <option value="default">Default</option>
+          <option value="default">Temperaments</option>
           {temps &&
             temps.map((t) => {
               return (
