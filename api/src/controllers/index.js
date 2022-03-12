@@ -8,22 +8,22 @@ const {
 } = require("../services");
 const controller = {};
 
-controller.dogs = async (req, res) => {
+controller.dogs = (req, res) => {
   const { name } = req.query;
 
-  const allDogs = await getAllDogs();
+  getAllDogs().then((r) => {
+    if (name) {
+      const dogFind = r.filter((dog) =>
+        dog.name.toLowerCase().includes(name.toLowerCase())
+      );
 
-  if (name) {
-    const dogFind = allDogs.filter((dog) =>
-      dog.name.toLowerCase().includes(name.toLowerCase())
-    );
-
-    dogFind.length
-      ? res.status(200).send(dogFind)
-      : res.status(400).send("Sorry, we couldn't find your dog :(");
-  } else {
-    res.status(200).send(allDogs);
-  }
+      dogFind.length
+        ? res.status(200).send(dogFind)
+        : res.status(400).send("Sorry, we couldn't find your dog :(");
+    } else {
+      res.status(200).send(r);
+    }
+  });
 };
 
 controller.dogsId = async (req, res) => {
@@ -37,9 +37,8 @@ controller.dogsId = async (req, res) => {
     : res.status(400).send("Sorry, we couldn't find your dog :(");
 };
 
-controller.temperaments = async (req, res) => {
-  const temps = await getTemperaments();
-  res.send(temps);
+controller.temperaments = (req, res) => {
+  getTemperaments().then((r) => res.send(r));
 };
 
 controller.dogPost = async (req, res) => {
@@ -55,8 +54,7 @@ controller.dogPost = async (req, res) => {
   } = req.body;
 
   const errors = validate(req.body);
-  if (Object.keys(errors).length)
-    res.send(400, errors);
+  if (Object.keys(errors).length) res.send(400, errors);
   else {
     const dogFormat = {
       name,
@@ -94,21 +92,17 @@ controller.delete = async (req, res) => {
   }
 };
 
-controller.filterCreated = async (req, res) => {
+controller.filterCreated = (req, res) => {
   try {
-    const dbInfo = await getDbInfo();
-    console.log(dbInfo);
-    res.status(200).send(dbInfo);
+    getDbInfo().then((r) => res.send(200, r));
   } catch (e) {
     res.send("Something is wrong :S", e);
   }
 };
 
-controller.filterApi = async (req, res) => {
+controller.filterApi = (req, res) => {
   try {
-    const apiInfo = await getApiInfo();
-
-    res.status(200).send(apiInfo);
+    getApiInfo().then((respuesta) => res.status(200).send(respuesta));
   } catch (e) {
     res.send("Something is wrong :S", e);
   }
