@@ -112,7 +112,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         temps: action.payload,
-        loading: false,
       };
     case SET_LOADING:
       return {

@@ -31,7 +31,6 @@ controller.dogsId = async (req, res) => {
 
   const allDogs = await getAllDogs();
   const dogFind = id && allDogs.find((dog) => String(dog.id) === id);
-  console.log(dogFind);
   dogFind
     ? res.status(200).json(dogFind)
     : res.status(400).send("Sorry, we couldn't find your dog :(");

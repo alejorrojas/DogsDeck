@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setClear } from "../redux/actions";
+import { setClear, setLoading } from "../redux/actions";
 import {
   filterApi,
   filterDb,

@@ -23,11 +23,9 @@ function Home() {
   };
 
   useEffect(() => {
-    dispatch(setLoading());
     dispatch(getTemps());
     dispatch(getDogs());
   }, [dispatch]);
-
 
   return (
     <>
@@ -40,9 +38,9 @@ function Home() {
               <img src={load} alt="loading..." />
             </div>
           )}
-        <Slider/>
+          {/* <Slider/> */}
           {allDogs.length ? <Cards dogs={currentCards} /> : <div></div>}
-          {!loading && (
+          {allDogs.length > 0 && (
             <footer>
               <Pagination
                 cardsPerPage={state.cardsPerPage}
