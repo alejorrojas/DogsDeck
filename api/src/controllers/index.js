@@ -31,7 +31,6 @@ controller.dogsId = async (req, res) => {
 
   const allDogs = await getAllDogs();
   const dogFind = id && allDogs.find((dog) => String(dog.id) === id);
-  console.log(dogFind);
   dogFind
     ? res.status(200).json(dogFind)
     : res.status(400).send("Sorry, we couldn't find your dog :(");
@@ -97,7 +96,6 @@ controller.delete = async (req, res) => {
 controller.filterCreated = async (req, res) => {
   try {
     const dbInfo = await getDbInfo();
-    console.log(dbInfo);
     res.status(200).send(dbInfo);
   } catch (e) {
     res.send("Something is wrong :S", e);

@@ -23,7 +23,6 @@ function Home() {
   };
 
   useEffect(() => {
-    dispatch(setLoading());
     dispatch(getTemps());
     dispatch(getDogs());
   }, [dispatch]);
@@ -40,7 +39,7 @@ function Home() {
               <img src={load} alt="loading..." />
             </div>
           )}
-        <Slider/>
+        {/* <Slider/> */}
           {allDogs.length ? <Cards dogs={currentCards} /> : <div></div>}
           {!loading && (
             <footer>

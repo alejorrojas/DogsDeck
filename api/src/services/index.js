@@ -2,20 +2,6 @@ const axios = require("axios");
 const { Dog, Temperament } = require("../db");
 
 const getApiInfo = async () => {
-  //Intento de promesa fallida
-  //   const apiInfo = [];
-
-  //   axios.get("https://api.thedogapi.com/v1/breeds").then((res) =>
-  //     res.data.map((dog) => {
-  //       apiInfo.push({
-  //         image: dog.image,
-  //         name: dog.name,
-  //         temperament: dog.temperament,
-  //         weight: dog.weight.metric,
-  //       });
-  //     })
-  //   );
-  //   return apiInfo;
   const apiUrl = await axios.get("https://api.thedogapi.com/v1/breeds");
   const apiInfo = await apiUrl.data.map((dog) => {
     return {
@@ -41,7 +27,6 @@ const getDbInfo = async () => {
     },
   });
   const dbFormat = dbInfo.map((dog) => {
-    console.log(dog);
     const {
       id,
       name,
@@ -70,8 +55,9 @@ const getDbInfo = async () => {
 const getTemperaments = async () => {
   const allDogs = await getApiInfo();
   const tempsArray = allDogs.map((dog) => dog.temperament);
-
-  const tempsFiltered = [...new Set(tempsArray.flat())];
+  const tempsFiltered = [...new Set(tempsArray.flat())].filter(
+    (t) => t !== undefined
+  );
 
   tempsFiltered.forEach((temp) => {
     Temperament.findOrCreate({
@@ -82,22 +68,6 @@ const getTemperaments = async () => {
   const allTemps = await Temperament.findAll();
   return allTemps;
 };
-
-//Intento de promesa fallido
-// const getDbInfo = () => {
-//   const dbInfo = [];
-
-//   Dog.findAll({
-//     include: {
-//       model: Temperament,
-//       attributes: ["name"],
-//       through: {
-//         attributes: [],
-//       },
-//     },
-//   }).then((res) => (dbInfo = res));
-//   return dbInfo;
-// };
 
 const getAllDogs = async () => {
   const apiInfo = await getApiInfo();
