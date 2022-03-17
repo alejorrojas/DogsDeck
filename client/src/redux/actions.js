@@ -16,11 +16,12 @@ export const ERROR = "ERROR";
 export const ADD_FAV = "ADD_FAV";
 export const DELETE_FAV = "DELETE_FAV";
 export const CLEAR = "CLEAR";
+export const ORDER_HEIGHT = "ORDER_HEIGHT";
 
 export const getDogs = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get("http://localhost:3001/dogs");
+      const res = await axios.get("/dogs");
       return dispatch({
         type: GET_DOGS,
         payload: res.data,
@@ -36,7 +37,7 @@ export const getDogs = () => {
 export const findDogs = (name) => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+      const res = await axios.get(`/dogs?name=${name}`);
       return dispatch({
         type: GET_NAME_DOG,
         payload: res.data,
@@ -52,7 +53,7 @@ export const findDogs = (name) => {
 export const findId = (id) => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`http://localhost:3001/dogs/${id}`);
+      const res = await axios.get(`/dogs/${id}`);
       return dispatch({
         type: GET_ID_DOG,
         payload: res.data,
@@ -68,7 +69,7 @@ export const findId = (id) => {
 export const postDog = (data) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`http://localhost:3001/dog`, data);
+      const res = await axios.post(`/dog`, data);
       return res;
     } catch (e) {
       return dispatch({
@@ -81,7 +82,7 @@ export const postDog = (data) => {
 export const getTemps = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`http://localhost:3001/temperament`);
+      const res = await axios.get(`/temperament`);
       return dispatch({
         type: GET_TEMP,
         payload: res.data,
@@ -114,7 +115,7 @@ export const setClear = () => {
 export const deleteDog = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/deleted/${id}`);
+      await axios.delete(`/deleted/${id}`);
       return dispatch({
         type: DELETE_DOG,
       });
@@ -125,6 +126,10 @@ export const deleteDog = (id) => {
     }
   };
 };
+
+export const orderHeight = (payload)=>{
+  return {type: ORDER_HEIGHT, payload}
+}
 
 
 
@@ -144,7 +149,7 @@ export const orderWeight = (order) => {
 export const filterDb = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`http://localhost:3001/created`);
+      const res = await axios.get(`/created`);
       return dispatch({
         type: FILTER_DB,
         payload: res.data,
@@ -159,7 +164,7 @@ export const filterDb = () => {
 export const filterApi = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`http://localhost:3001/api`);
+      const res = await axios.get(`/api`);
       return dispatch({
         type: FILTER_API,
         payload: res.data,

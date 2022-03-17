@@ -15,6 +15,7 @@ import {
   ADD_FAV,
   DELETE_FAV,
   CLEAR,
+  ORDER_HEIGHT,
 } from "./actions";
 
 const initialState = {
@@ -69,6 +70,36 @@ const rootReducer = (state = initialState, action) => {
           allDogs: orderName.reverse(),
         };
       }
+    case ORDER_HEIGHT: 
+      const orderHeight = state.copyDogs.sort((a,b)=>{
+        const heightA = a.height.split("-")
+        const heightB = b.height.split("-")
+
+        const numberA1 = Number(heightA.at(0))
+        const numberA2 = Number(heightA.at(2))
+        const numberB1 = Number(heightB.at(0))
+        const numberB2 = Number(heightB.at(2))
+
+        const resultA = (numberA1+numberA2)/2
+        const resultB = (numberB1+numberB2)/2
+
+        return resultA - resultB
+      })
+
+      if(action.payload ==='lessheight'){
+        return{
+          ...state,
+          allDogs: orderHeight
+        }
+      }
+      else{
+        return{
+          ...state,
+          allDogs: orderHeight.reverse()
+        }
+      }
+
+
     case ORDER_WEIGHT:
       const orderWeight = state.copyDogs.sort((a, b) => {
         const weightA = a.weight.split(" ");
@@ -76,7 +107,7 @@ const rootReducer = (state = initialState, action) => {
 
         return Number(weightA.at(0)) - Number(weightB.at(0));
       });
-      if (action.payload === "lessheight") {
+      if (action.payload === "lessweight") {
         return {
           ...state,
           allDogs: orderWeight,

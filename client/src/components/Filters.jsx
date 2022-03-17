@@ -19,7 +19,13 @@ function Filters() {
   const handleChange = (e) => {
     const { value } = e.target;
     switch (value) {
+      case "moreheight":
+        dispatch(orderWeight(value));
+        break;
       case "lessheight":
+        dispatch(orderWeight(value));
+        break;
+      case "lessweight":
         dispatch(orderWeight(value));
         break;
       case "moreweight":
@@ -70,7 +76,9 @@ function Filters() {
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
           <option value="moreweight">+ Weight</option>
-          <option value="lessheight">- Wheight</option>
+          <option value="lessweight">- Wheight</option>
+          <option value="moreheight">+ Height</option>
+          <option value="lessheight">- Height</option>
         </select>
       </div>
       <div>
