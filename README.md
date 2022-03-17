@@ -1,8 +1,9 @@
 <img src='client\src\assets\Header.png'/>
 
 <h1>DogsDeck<h1/>
+Dogs finder proyect. 
 
-Personal WeatherApp proyect. Build with:
+## Build with:
 - React
 - Redux
 - HTML
@@ -10,10 +11,14 @@ Personal WeatherApp proyect. Build with:
 - NodeJS
 - Express
 - Sequilize / PostgreSQL
+  
+## About
+In this site you can look for your favorites dogs and save them. You are able not only to filter them by temperaments, weight, height, A-Z, Z-A, but also create your own dog and check the pets created by the community.
 
 ## Deployment
 
 The proyect is already deployed with Vercel, so you can cheek it out on your own device with the following link. 
+  
 👩‍💻<a>https://dogs-deck.vercel.app/<a>
 
 
@@ -38,6 +43,6 @@ npm run dev
 
 ## Final View
 
-<img src='src\assets\readme\view1.png' />
+<img src='client\src\assets\readme\view1.png' />
 
 
