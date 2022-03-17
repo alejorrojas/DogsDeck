@@ -2,15 +2,6 @@
 
 # DogsDeck
 
-## Build with:
-- React
-- Redux
-- HTML
-- CSS
-- NodeJS
-- Express
-- Sequilize / PostgreSQL
-  
 ## About
 In this site you can look for your favorites dogs and save them. You are able not only to filter them by temperaments, weight, height, A-Z, Z-A, but also create your own dog and check the pets created by the community.
 
@@ -20,7 +11,15 @@ The proyect is already deployed with Vercel, so you can cheek it out on your own
   
 👩‍💻<a>https://dogs-deck.vercel.app/<a>
 
-
+## Build with:
+- React
+- Redux
+- HTML
+- CSS
+- NodeJS
+- Express
+- Sequilize / PostgreSQL
+    
 ### Install
 In order to run it on your own computer you have to:
 1. Clone this repository
