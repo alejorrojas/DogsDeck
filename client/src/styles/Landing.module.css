@@ -1,77 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
-
-.homeBtn {
-  margin: 20px;
-  font-size: 18px;
-  width: 170px;
-  padding: 15px 30px;
-
-  background-color: #8f8e8ede;
-  border: none;
-  cursor: pointer;
-  color: #ffff;
-  font-family: "DM Serif Display", serif;
-  transition: all 0.5s ease;
-}
-
-.homeBtn:hover {
-  background-color: rgba(75, 74, 74, 0.781)
-}
 
 .landingContainer {
   height: 100vh;
   width: 100vw;
   object-fit: contain;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.landingContainer > img {
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-}
-
-.landingContainer > h1 {
-  font-size: 100px;
-  color: #ffff;
-  font-family: "DM Serif Display", serif;
-}
-
-.landingContainer > h3 {
-  font-size: 32px;
-  color: #ffff;
-  font-family: "DM Serif Display", serif;
-}
-.video {
-  object-fit: cover;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  z-index: -1;
-}
-
-@media screen and (max-width: 1000px) {
-  .landingContainer > h1 {
-    font-size: 50px;
-  }
-  .landingContainer > h3 {
-    font-size: 25px;
-  }
-  .homeBtn {
-    font-size: 10px;
-    width: 120px;
-    padding: 7px 15px;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .landingContainer {
-    gap: 1rem;
-    padding: 20px;
-  }
 }
