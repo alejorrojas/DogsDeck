@@ -118,6 +118,8 @@
     align-items: center;
   }
   .formBox{
-    width: 70vw;
+    width: 100vw;
+    margin: 25px 0;
+    border-radius: 0;
   }
 }
