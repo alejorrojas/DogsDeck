@@ -87,7 +87,7 @@ function Filters() {
           onChange={handleChange}
         >
           <option value="default">Filter</option>
-          <option value="created">Created</option>
+          <option value="created">Community</option>
           <option value="api">Web</option>
         </select>
       </div>

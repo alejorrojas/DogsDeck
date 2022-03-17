@@ -152,9 +152,6 @@ const validate = (input) => {
     errors.height = "The max must be greater than the min";
   }
   //check number type
-  else if (checkNaN(numbers)) {
-    errors.nan = "The weight, height and life span inputs must be a number";
-  }
   //check min
   if (checkZero(numbers)) {
     errors.zero = "The value must be greater than zero";
