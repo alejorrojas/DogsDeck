@@ -2,16 +2,16 @@
 
 # DogsDeck
 
-## About
+## About �
 In this site you can look for your favorites dogs and save them. You are able not only to filter them by temperaments, weight, height, A-Z, Z-A, but also create your own dog and check the pets created by the community.
 
 ## Deployment
 
 The proyect is already deployed with Vercel, so you can cheek it out on your own device with the following link. 
   
-👩‍💻<a>https://dogs-deck.vercel.app/<a>
+💻<a>https://dogs-deck.vercel.app/<a>
 
-## Build with:
+## 🛠 Build with:
 - React
 - Redux
 - HTML
