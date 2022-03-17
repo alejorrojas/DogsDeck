@@ -38,9 +38,18 @@ const checkNegatives = (arr) => {
 };
 
 const validate = (input) => {
+  const regexUrl =
+    /(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)/i;
   const regexName = /^[a-zA-Z ]+$/;
-  const { life_span, height_max, height_min, weight_max, weight_min, name } =
-    input;
+  const {
+    life_span,
+    height_max,
+    height_min,
+    weight_max,
+    weight_min,
+    name,
+    image,
+  } = input;
   const numbers = [height_max, height_min, weight_max, weight_min, life_span];
   const errors = {};
 
@@ -80,6 +89,9 @@ const validate = (input) => {
   }
   if (checkLimit([life_span], 30)) {
     errors.tooOld = "The life span can't be more than 30 years";
+  }
+  if (!regexUrl.test(image)) {
+    errors.url = "Only jpg, jpeg, and png urls are allowed";
   }
 
   return errors;
@@ -270,7 +282,7 @@ function CharacterCreate() {
           onChange={handleChange}
           placeholder="Url "
         />
-
+        {errors.url && <span className={styles.error}>{errors.url} </span>}
         <label htmlFor="tempsInput">Temperaments</label>
         <select id="tempsInput" onChange={handleSelect}>
           {!input.temperament.length ? (
