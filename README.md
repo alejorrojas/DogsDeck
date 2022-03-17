@@ -1,7 +1,6 @@
 <img src='client\src\assets\Header.png'/>
 
-<h1>DogsDeck<h1/>
-Personal Proyect
+# DogsDeck
 
 ## Build with:
 - React
@@ -22,7 +21,7 @@ The proyect is already deployed with Vercel, so you can cheek it out on your own
 👩‍💻<a>https://dogs-deck.vercel.app/<a>
 
 
-### Installing
+### Install
 In order to run it on your own computer you have to:
 1. Clone this repository
 2. Install both api and client dependencies
@@ -32,7 +31,7 @@ In order to run it on your own computer you have to:
   
 ⚙ For the client side: REACT_APP_API eg: http://{DB_HOST}:{PORT}
 
-## Final View
+# Final View
 
 <img src='client\src\assets\readme\view1.png' />
 <img src='client\src\assets\readme\view2.png' />
