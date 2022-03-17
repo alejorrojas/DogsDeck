@@ -1,7 +1,7 @@
 <img src='client\src\assets\Header.png'/>
 
 <h1>DogsDeck<h1/>
-Dogs finder proyect. 
+Personal Proyect
 
 ## Build with:
 - React
@@ -23,26 +23,25 @@ The proyect is already deployed with Vercel, so you can cheek it out on your own
 
 
 ### Installing
-
-In order to run the code on your own device, you will have to: 
-
-* First, make sure that you already have installed node in your computer.Cancel changes
-* Then, fork and clone the repository.
-* On main folder, run the following comand in your terminal
-
-```
-npm install
-```
-
-* And then, to run it on your browser, write on your terminal the following comand
-```
-npm run dev
-```
-* Follow the link shown on your terminal
-
+In order to run it on your own computer you have to:
+1. Clone this repository
+2. Install both api and client dependencies
+3. Add your own .env variables: 
+  
+⚙ For the api side: DB_HOST, DB_NAME, DB_PASSWORD, DB_USER, PORT
+  
+⚙ For the client side: REACT_APP_API eg: http://{DB_HOST}:{PORT}
 
 ## Final View
 
 <img src='client\src\assets\readme\view1.png' />
+<img src='client\src\assets\readme\view2.png' />
+<img src='client\src\assets\readme\view3.png' />
+<img src='client\src\assets\readme\view4.png' />
+<img src='client\src\assets\readme\view (1).png' />
+<img src='client\src\assets\readme\view (2).png' />
+<img src='client\src\assets\readme\view (3).png' />
+<img src='client\src\assets\readme\view (4).png' />
+
 
 
