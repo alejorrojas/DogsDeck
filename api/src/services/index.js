@@ -113,8 +113,15 @@ const validate = (input) => {
   const regexUrl =
     /(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)/i;
   const regexName = /^[a-zA-Z ]+$/;
-  const { life_span, height_max, height_min, weight_max, weight_min, name } =
-    input;
+  const {
+    life_span,
+    height_max,
+    height_min,
+    weight_max,
+    weight_min,
+    name,
+    image,
+  } = input;
   const numbers = [
     height_max,
     height_min,
