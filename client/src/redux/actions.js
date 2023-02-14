@@ -82,7 +82,7 @@ export const postDog = (data) => {
 export const getTemps = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/temperament`);
+      const res = await axios.get(`/temperaments`);
       return dispatch({
         type: GET_TEMP,
         payload: res.data,
@@ -115,7 +115,7 @@ export const setClear = () => {
 export const deleteDog = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`/deleted/${id}`);
+      await axios.delete(`/delete/${id}`);
       return dispatch({
         type: DELETE_DOG,
       });
@@ -149,7 +149,7 @@ export const orderWeight = (order) => {
 export const filterDb = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/created`);
+      const res = await axios.get(`/filter/created`);
       return dispatch({
         type: FILTER_DB,
         payload: res.data,
@@ -164,7 +164,7 @@ export const filterDb = () => {
 export const filterApi = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/api`);
+      const res = await axios.get(`/filter/api`);
       return dispatch({
         type: FILTER_API,
         payload: res.data,
