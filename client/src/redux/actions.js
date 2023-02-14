@@ -69,7 +69,7 @@ export const findId = (id) => {
 export const postDog = (data) => {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`/dog`, data);
+      const res = await axios.post(`/dogs`, data);
       return res;
     } catch (e) {
       return dispatch({
@@ -149,7 +149,7 @@ export const orderWeight = (order) => {
 export const filterDb = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/filter/created`);
+      const res = await axios.get(`/dogs/filter/created`);
       return dispatch({
         type: FILTER_DB,
         payload: res.data,
@@ -164,7 +164,7 @@ export const filterDb = () => {
 export const filterApi = () => {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`/filter/api`);
+      const res = await axios.get(`/dogs/filter/api`);
       return dispatch({
         type: FILTER_API,
         payload: res.data,
