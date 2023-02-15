@@ -2,8 +2,10 @@
 
 # DogsDeck
 
+📌 Check out the [backend code](https://github.com/alejorrojas/dogs-api) behind this project 
+
 ## About �
-In this site you can look for your favorites dogs and save them. You are able not only to filter them by temperaments, weight, height, A-Z, Z-A, but also create your own dog and check the pets created by the community.
+Site built for community where you can find your favorites dogs and save them. You are able not only to filter them by temperaments, weight, height, A-Z, Z-A, but also create your own dog and check the pets created by the community.
 
 ## Deployment
 
