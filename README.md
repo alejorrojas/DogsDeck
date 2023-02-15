@@ -25,10 +25,8 @@ The proyect is already deployed with Vercel, so you can cheek it out on your own
 ### Install
 In order to run it on your own computer you have to:
 1. Clone this repository
-2. Install both api and client dependencies
+2. Install dependencies
 3. Add your own .env variables: 
-  
-⚙ For the api side: DB_HOST, DB_NAME, DB_PASSWORD, DB_USER, PORT
   
 ⚙ For the client side: REACT_APP_API eg: http://{DB_HOST}:{PORT}
 
